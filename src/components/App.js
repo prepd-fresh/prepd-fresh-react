@@ -1,70 +1,28 @@
 import React from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import './App.css';
+import Home from './Home';
+import NavMenu from './NavMenu';
+import Footer from './Footer';
 
-const Index = () => (
-  <div className="Index">
-    <NavMenu />
-    <Header />
-    <Slider />
-    <hr/>
-    <InfoCard />
-    <InfoCard />
-    <InfoCard />
-    <div className="img-overlay">
-      <h2>What are people saying about Prep'd Fresh?</h2>
-    </div>
-    <Testimonial />
-    <Testimonial />
-    <Testimonial />
-    <Footer />
+const Menu = () => (
+  <div className="Menu">
+    <h2>Menu</h2>
+    <p>Choose from our weekly rotating selection of dishes!</p>
+    <p>Meals are delivered every Sunday. The next delivery date is Sunday, July 28. Order by 11:59pm Friday, July 26 to receive your delivery this Sunday.</p>
+    <MealCard />
+    <MealCard />
+    <MealCard />
   </div>
-)
+);
 
-const Menu = () => <h2>Menu</h2>
+const MealCard = () => (
+  <div className="MealCard">
 
-const Cart = () => <h2>Cart</h2>
-
-const NavMenu = () => (
-  <div className="NavMenu">Nav Menu</div>
-)
-
-const Header = () => (
-  <header>
-    <h1>Student life made easy</h1>
-    <button>ORDER NOW</button>
-    <p>New menu weekly | No tax | Free delivery</p>
-  </header>
-)
-
-const Slider = () => (
-  <div className="Slider">
-    <h2>How it works</h2>
-    <div className="slider-wrapper">Slider goes here</div>
   </div>
-)
+);
 
-const InfoCard = () => (
-  <div className="InfoCard">
-    <div className="InfoCard-img" />
-    <h3>A menu that updates every week</h3>
-    <p>Every week features a fresh menu, to keep your tastebuds happy!</p>
-  </div>
-)
-
-const Testimonial = () => (
-  <div className="Testimonial">
-    <div className="Testimonial-img" />
-    <h3>Firstname L.</h3>
-    <blockquote>
-      This space is reserved for a quote from one of our users!
-    </blockquote>
-  </div>
-)
-
-const Footer = () => (
-  <div className="Footer" />
-)
+const Cart = () => <h2>Cart</h2>;
 
 function App() {
   return (
@@ -77,16 +35,18 @@ function App() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/menu/">Menu</Link>
+                
               </li>
               <li>
                 <Link to="/cart/">Cart</Link>
               </li>
             </ul>
           </nav>*/}
-        <Route path="/" exact component={Index} />
+        <NavMenu />
+        <Route path="/" exact component={Home} />
         <Route path="/menu/" component={Menu} />
         <Route path="/cart/" component={Cart} />
+        <Footer />
       </div>
     </BrowserRouter>
   );

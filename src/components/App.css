@@ -1,14 +1,14 @@
-/* Home */
+/* Index */
 
-.App {
+body {
   background-color: #FAF8F4; 
+  min-height: 100vh;
 }
 
-.App > div {
+.App {
   width: 320px;
   border: 1px solid red;
   margin: auto;
-  min-height: 100vh;
   height: auto;
 }
 
@@ -50,12 +50,13 @@
 .Testimonial {
   text-align: center;
   border: 1px solid blue;
-  margin: 20px;
+  margin: 70px 20px 20px 20px;
   position: relative;
   z-index: 1;
+  padding-top: 50px;
 }
 
-.Testimonial::before {
+/* .Testimonial::before {
   content: '';
   display: inline-block;
   position: absolute;
@@ -66,7 +67,7 @@
   border: 1px solid orange;
   width: 100%;
   z-index: -1;
-}
+} */
 
 .Testimonial-img {
   width: 100px;
@@ -75,6 +76,10 @@
   background-color: white;
   border-radius: 50%;
   margin: auto;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  margin-left: -50px;
 }
 
 .Footer {
@@ -83,3 +88,10 @@
 }
 
 /* Menu */
+
+.MealCard {
+  margin: 20px;
+  height: 200px;
+  border: 1px solid blue;
+  box-sizing: content-box;
+}
