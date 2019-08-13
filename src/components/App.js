@@ -28,24 +28,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        {/*
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                
-              </li>
-              <li>
-                <Link to="/cart/">Cart</Link>
-              </li>
-            </ul>
-          </nav>*/}
         <NavMenu />
         <Route path="/" exact component={Home} />
         <Route path="/menu/" component={Menu} />
-        <Route path="/cart/" component={Cart} />
         <Footer />
       </div>
     </BrowserRouter>
