@@ -4,23 +4,8 @@
     max-width: 90%;
 }
 
-.Home header {
-    text-align: center;
-}
-
 .Home h2 {
     text-align: center;
-}
-
-.InfoCard {
-    margin: 10px;
-    border: 1px solid blue;
-}
-
-.InfoCard-img {
-    height: 200px;
-    width: 100%;
-    border: 1px solid green;
 }
 
 .img-overlay {
@@ -30,37 +15,39 @@
     text-align: center;
 }
 
-.Testimonial {
-    text-align: center;
-    border: 1px solid blue;
-    margin: 70px 20px 20px 20px;
-    position: relative;
-    z-index: 1;
-    padding-top: 50px;
+/* Home containers - vary with screen size */
+
+.InfoCard-container {
+    display: grid;
+    margin: 20px;
+    grid-row-gap: 40px;
 }
 
-/* .Testimonial::before {
-content: '';
-display: inline-block;
-position: absolute;
-top: 50px;
-left: 0;
-height: 80%;
-text-align: center;
-border: 1px solid orange;
-width: 100%;
-z-index: -1;
-} */
+.Testimonial-container {
+    display: grid;
+    margin: 80px 20px 20px 20px;
+    grid-row-gap: 80px;
+}
 
-.Testimonial-img {
-    width: 100px;
-    height: 100px;
-    border: 1px solid green;
-    background-color: white;
-    border-radius: 50%;
-    margin: auto;
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    margin-left: -50px;
+.Slider-wrapper {
+    border: 1px solid blue;
+    padding-top: 40%;
+}
+
+@media screen and (min-width: 1024px) {
+    .Slider-wrapper {
+        margin: 40px;
+    }
+
+    .InfoCard-container {
+        grid-template: auto / 1fr 1fr 1fr;
+        margin: 20px 40px;
+        grid-column-gap: 40px;
+    }
+
+    .Testimonial-container {
+        grid-template: auto / 1fr 1fr 1fr;
+        margin: 80px 40px 20px 40px;
+        grid-column-gap: 40px;
+    }
 }

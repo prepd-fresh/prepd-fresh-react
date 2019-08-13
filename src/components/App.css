@@ -17,6 +17,16 @@ body {
   border: 1px solid blue;
 }
 
+@media screen and (min-width: 1024px) {
+  .App {
+    width: 1024px;
+  }
+
+  .NavMenu {
+    height: 60px;
+  }
+}
+
 .Footer {
   height: 40px;
   border: 1px solid blue;

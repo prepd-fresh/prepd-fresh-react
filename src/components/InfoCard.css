@@ -1,0 +1,9 @@
+.InfoCard {
+    border: 1px solid blue;
+}
+
+.InfoCard-img {
+    padding-top: 50%;
+    width: 100%;
+    border: 1px solid green;
+}
