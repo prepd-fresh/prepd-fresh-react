@@ -3,10 +3,14 @@ import './Checkout.css';
 
 const CartItem = () => (
     <div className="CartItem">
-        <div className="CartItem-img"></div>
-        <h4>Salmon w/ Rice, Potatoes, &amp; ...</h4>
-        <p>Large</p>
+        <div className="item-name-and-size">
+            <h4>Salmon w/ Rice, Potatoes, &amp; ...</h4>
+            <p>Large</p>
+        </div>
         <p>$7.99</p>
+        <div className="delete-btn">
+            <button>X</button>
+        </div>
     </div>
 );
 
