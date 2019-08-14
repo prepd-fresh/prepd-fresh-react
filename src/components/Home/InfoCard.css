@@ -6,4 +6,6 @@
     padding-top: 50%;
     width: 100%;
     border: 1px solid green;
+    background-size: cover;
+    background-position: center;
 }

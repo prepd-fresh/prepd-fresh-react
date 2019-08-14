@@ -13,6 +13,10 @@
     border: 1px solid blue;
     margin: 40px 0;
     text-align: center;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    font-weight: normal;
 }
 
 /* Home containers - vary with screen size */
