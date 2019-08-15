@@ -1,5 +1,9 @@
 /* App */
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #FAF8F4; 
   min-height: 100vh;

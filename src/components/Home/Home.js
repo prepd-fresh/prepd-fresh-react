@@ -13,13 +13,13 @@ const Home = props => {
             <Slider {...props} />
             <hr/>
             <div className="InfoCard-container">
-                {props.infoCards.map(card => <InfoCard {...card} />)}
+                {props.infoCards.map((card, i) => <InfoCard key={`id${i}`} {...card} />)}
             </div>
             <div className="img-overlay" style={style}>
                 <h2>What are people saying about Prep'd Fresh?</h2>
             </div>
             <div className="Testimonial-container">
-                {props.testimonials.map(t => <Testimonial {...t} />)}
+                {props.testimonials.map(t => <Testimonial key={t.id} {...t} />)}
             </div>
         </div>
     )

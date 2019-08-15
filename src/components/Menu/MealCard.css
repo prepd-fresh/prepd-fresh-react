@@ -29,6 +29,8 @@
 
 .meal-img {
     grid-area: 1 / 1 / span 2 / span 1;
+    background-size: cover;
+    background-position: center;
 }
 
 .meal-quantity-price input {
@@ -43,6 +45,13 @@
 
 .meal-nutrition {
     font-size: 11px;
+}
+
+button {
+    background: #23B47E;
+    border: none;
+    color: white;
+    border-radius: 2px;
 }
 
 @media screen and (min-width: 1024px) {
