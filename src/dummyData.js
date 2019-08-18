@@ -1,3 +1,5 @@
+var EXPORTED_SYMBOLS = ["dummyData"];
+
 const dummyData = {
     heroImageUrl: 'Photo-by-Daniel-Park-on-Unsplash.jpg',
     infoCards: [
@@ -141,4 +143,4 @@ const dummyData = {
     ]
 }
 
-export default dummyData;
+module.exports = dummyData;
