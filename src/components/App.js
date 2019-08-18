@@ -15,7 +15,8 @@ class App extends React.Component {
     testimonials: [],
     sliderImgUrl: '',
     products: {},
-    cart: []
+    cart: [],
+    checkoutIsOpen: false
   }
 
   componentDidMount() {
@@ -24,17 +25,26 @@ class App extends React.Component {
         .then(initialState => this.setState(initialState))
   }
 
+  updateValueOf = key => value => this.setState({[key]: value})
+
+  toggleValueOf = key => () => this.setState(prevState => ({[key]: !prevState[key]}))
+
   render() {
+    const {state, toggleValueOf} = this;
+    const handleCheckoutPanelToggle = toggleValueOf('checkoutIsOpen');
+
     return (
       <BrowserRouter>
         <div className="App">
-          <NavMenu />
-          <Switch>
-            <Route path="/" exact render={props => <Home {...{...props, ...this.state}} />} />
-            <Route path="/menu/" render={props => <Menu {...{...props, ...this.state}} />} />
-            <Route path="/checkout/" render={props => <Checkout {...{...props, ...this.state}} />} />
-            <Route render={() => <h2>404: Page not found</h2>} />
-          </Switch>
+          <NavMenu {...{handleCheckoutPanelToggle}} />
+          <main>
+            <Switch>
+              <Route path="/" exact render={props => <Home {...{...props, ...state}} />} />
+              <Route path="/menu/" render={props => <Menu {...{...props, ...state}} />} />
+              <Route render={() => <h2>404: Page not found</h2>} />
+            </Switch>
+            {state.checkoutIsOpen && <Checkout {...state} />}
+          </main>
           <Footer />
         </div>
       </BrowserRouter>

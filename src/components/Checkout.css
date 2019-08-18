@@ -3,6 +3,11 @@
     border: 1px solid blue;
     box-sizing: border-box;
     padding: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #FAF8F4;
+    height: 100%;
 }
 
 .Checkout h2 {
