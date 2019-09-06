@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
+import preloadedState from './preloadedState';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import prepdApp from './reducers';
 
-const store = createStore(prepdApp)
+const store = createStore(
+    prepdApp,
+    preloadedState
+)
 
 ReactDOM.render(
     <Provider store={store}>

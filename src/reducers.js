@@ -9,7 +9,14 @@ import {
 } from './actions';
 const { DEFAULT } = CartStatuses;
 
-function cartStatus (state = DEFAULT, action) {
+function products(state = {}, action) {
+    switch(action.type) {
+        default:
+            return state;
+    }
+}
+
+function cartStatus(state = DEFAULT, action) {
     switch(action.type) {
         case UPDATE_CART_STATUS:
             return action.status
@@ -18,16 +25,16 @@ function cartStatus (state = DEFAULT, action) {
     }
 }
 
-function cartVisibility (state = false, action) {
+function cartIsVisible(state = false, action) {
     switch(action.type) {
         case TOGGLE_CART_VISIBILITY:
-            return (!action.cartVisibility)
+            return (!action.cartIsVisible)
         default:
             return state;
     }
 }
 
-function cart (state = [], action) {
+function cart(state = [], action) {
     switch(action.type) {
         case ADD_ITEM_TO_CART:
             return [
@@ -47,10 +54,51 @@ function cart (state = [], action) {
     }
 }
 
+function heroImageUrl(state = '', action) {
+    switch(action.type) {
+        default: 
+            return state;
+    }
+}
+
+function infoCards(state = [], action) {
+    switch(action.type) {
+        default: 
+            return state;
+    }
+}
+
+function testimonialHeadingImgUrl(state = '', action) {
+    switch(action.type) {
+        default: 
+            return state;
+    }
+}
+
+function testimonials(state = [], action) {
+    switch(action.type) {
+        default: 
+            return state;
+    }
+}
+
+function sliderImgUrl(state = '', action) {
+    switch(action.type) {
+        default: 
+            return state;
+    }
+}
+
 const prepdApp = combineReducers({
-    cartVisibility,
+    products,
+    cartIsVisible,
     cartStatus,
-    cart
+    cart,
+    heroImageUrl,
+    infoCards,
+    testimonialHeadingImgUrl,
+    testimonials,
+    sliderImgUrl
 });
 
 export default prepdApp;

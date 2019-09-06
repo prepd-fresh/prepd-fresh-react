@@ -1,6 +1,4 @@
-var EXPORTED_SYMBOLS = ["dummyData"];
-
-const dummyData = {
+const preloadedState = {
     heroImageUrl: 'Photo-by-Daniel-Park-on-Unsplash.jpg',
     infoCards: [
         {
@@ -121,26 +119,6 @@ const dummyData = {
             }
         },
     },
-    cart: [
-        {
-            id: 'fdga78df6gasd',
-            dek: 'sm',
-            qty: 5,
-            veg: false
-        },
-        {
-            id: 'fdga78df6gasd',
-            dek: 'lg',
-            qty: 2,
-            veg: false
-        },
-        {
-            id: 'sd79fsd89afsd',
-            dek: 'sm',
-            qty: 3,
-            veg: true
-        }
-    ]
-}
+};
 
-module.exports = dummyData;
+export default preloadedState;
