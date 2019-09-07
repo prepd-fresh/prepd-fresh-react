@@ -42,7 +42,7 @@ function cartStatus(state = DEFAULT, action) {
 function cartIsVisible(state = false, action) {
     switch(action.type) {
         case TOGGLE_CART_VISIBILITY:
-            return (!action.cartIsVisible)
+            return (!state)
         default:
             return state;
     }

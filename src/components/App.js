@@ -18,15 +18,16 @@ const App = () => {
   //       .then(initialState => this.setState(initialState))
   // }
 
-  const toggleCartVisibility = () => dispatch(actions.toggleCartVisibility())
-
   return (
     <BrowserRouter>
       <div className="App">
-        <NavMenu {...{toggleCartVisibility}} />
+        <NavMenu />
         <main>
           <Switch>
-            <Route path="/" exact render={props => <Home {...{...props, ...state}} />} />
+            <Route 
+              path="/" 
+              exact 
+              render={props => <Home {...{...props, ...state}} />} />
             <Route path="/menu/" render={props => <Menu {...props} />} />
             <Route render={() => <h2>404: Page not found</h2>} />
           </Switch>
