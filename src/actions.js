@@ -19,8 +19,7 @@ export const addItemToCart = cartItem => ({
     cartItem
 })
 export const toggleCartVisibility = cartVisibility => ({
-    type: TOGGLE_CART_VISIBILITY, 
-    cartVisibility
+    type: TOGGLE_CART_VISIBILITY
 })
 export const removeItemFromCart = cartItemId => ({
     type: REMOVE_ITEM_FROM_CART, 

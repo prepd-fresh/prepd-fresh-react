@@ -5,10 +5,18 @@ import './Menu.css';
 
 const isProductType = desiredType => product => desiredType === product.type
 const toProductByIdFrom = productsObj => productId => productsObj[productId] 
-const toMealCardFromMeal = meal => <MealCard key={meal.id} {...meal} />
+const toMealCardFromMealWith = (sizeVariants, nutrition) => meal => (
+    <MealCard key={meal.id} {...{...meal, sizeVariants, nutrition}} />
+)
 
-const Menu = ({...props}) => {
+const Menu = props => {
     const products = useSelector(state => state.products);
+    const productSizeVariants = useSelector(state => ({
+        ...state.productSizeVariants
+    }));
+    const productNutrition = useSelector(state => ({
+        ...state.productNutrition
+    }));
     return (
         <div className="Menu">
             <h2>Menu</h2>
@@ -18,7 +26,10 @@ const Menu = ({...props}) => {
                 {Object.keys(products)
                         .map(toProductByIdFrom(products))
                         .filter(isProductType('meal'))
-                        .map(toMealCardFromMeal)}
+                        .map(toMealCardFromMealWith(
+                            productSizeVariants, 
+                            productNutrition
+                        ))}
             </div>
         </div>
     );

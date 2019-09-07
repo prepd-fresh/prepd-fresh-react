@@ -16,6 +16,20 @@ function products(state = {}, action) {
     }
 }
 
+function productSizeVariants(state = {}, action) {
+    switch(action.type) {
+        default:
+            return state;
+    }
+}
+
+function productNutrition(state = {}, action) {
+    switch(action.type) {
+        default:
+            return state;
+    }
+}
+
 function cartStatus(state = DEFAULT, action) {
     switch(action.type) {
         case UPDATE_CART_STATUS:
@@ -91,6 +105,8 @@ function sliderImgUrl(state = '', action) {
 
 const prepdApp = combineReducers({
     products,
+    productSizeVariants,
+    productNutrition,
     cartIsVisible,
     cartStatus,
     cart,
