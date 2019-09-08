@@ -7,7 +7,7 @@ import Home from './Home/Home';
 import NavMenu from './NavMenu';
 import Footer from './Footer';
 import Menu from './Menu/Menu';
-import Checkout from './Checkout';
+import Checkout from './Checkout/Checkout';
 
 const App = () => {
   const state = useSelector(state => state);

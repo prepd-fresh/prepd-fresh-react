@@ -1,44 +1,9 @@
 import React from 'react';
-import { removeItemFromCart, updateCartItemQty } from '../actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from './CheckoutForm';
 import './Checkout.css';
-
-const CartItem = ({cartItem: {name, ...cartItem}}) => {
-    const dispatch = useDispatch();
-    const removeFromCart = () => dispatch(removeItemFromCart(cartItem.id));
-    const updateItemQty = e => dispatch(updateCartItemQty(
-        cartItem.id, 
-        Number(e.target.value)
-    ));
-    return (
-        <div className="CartItem">
-            <div className="item-name-and-size">
-                <h4>{name.substr(0, 27)}{name.length > 27 && ' ...'}</h4>
-                <p>{cartItem.size}{cartItem.veggie && ', vegetarian'}</p>
-            </div>
-            <p>${cartItem.itemPrice}</p>
-            <p>Quantity <input type="number" 
-                    value={cartItem.qty} 
-                    onChange={updateItemQty}/></p>
-            <div className="delete-btn">
-                <button onClick={removeFromCart}>X</button>
-            </div>
-        </div>
-    );
-}
-
-const Cart = ({cartItems}) => (
-    <div className="Cart">
-        {Object.keys(cartItems)
-                .map(itemId => (
-                    <CartItem 
-                        key={itemId} 
-                        cartItem={cartItems[itemId]} />
-                ))}
-    </div>
-);
+import Cart from './Cart';
 
 const Checkout = () => {
     const cartItems = useSelector(state => ({...state.cart}))
