@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
+import uuidv4 from 'uuid/v4'
 import {
     ADD_ITEM_TO_CART,
     TOGGLE_CART_VISIBILITY,
     REMOVE_ITEM_FROM_CART,
-    UPDATE_CART_ITEM,
+    UPDATE_CART_ITEM_QTY,
     UPDATE_CART_STATUS,
     CartStatuses
 } from './actions';
@@ -32,7 +33,7 @@ function productNutrition(state = {}, action) {
 
 function cartStatus(state = DEFAULT, action) {
     switch(action.type) {
-        case UPDATE_CART_STATUS:
+        case UPDATE_CART_STATUS: 
             return action.status
         default:
             return state;
@@ -48,21 +49,52 @@ function cartIsVisible(state = false, action) {
     }
 }
 
-function cart(state = [], action) {
+function cart(state = {}, action) {
     switch(action.type) {
-        case ADD_ITEM_TO_CART:
-            return [
+        case ADD_ITEM_TO_CART: {
+            let { cartItem: aCartItem } = action;
+            let similarExistingItem = Object.keys(state)
+                .map(id => state[id])
+                .filter(cartItem => (
+                    aCartItem.productId === cartItem.productId
+                    && aCartItem.size === cartItem.size
+                    && aCartItem.veggie === cartItem.veggie
+                ))
+            if (similarExistingItem.length) {
+                return {
+                    ...state,
+                    [similarExistingItem[0].id]: {
+                        ...similarExistingItem[0],
+                        qty: ( Number(similarExistingItem[0].qty) + 
+                                Number(action.cartItem.qty))
+                    }
+                } 
+            } else {
+                let newId = uuidv4();
+                return {
+                    ...state,
+                    [newId]: {
+                        ...action.cartItem,
+                        id: newId
+                    }
+                };
+            }
+                
+        }
+        case REMOVE_ITEM_FROM_CART: {
+            const { [action.cartItemId]: remove, ...newState } = state;
+            return newState;
+        }
+        case UPDATE_CART_ITEM_QTY: {
+            const newState = {
                 ...state,
-                action.cartItem
-            ];
-        case REMOVE_ITEM_FROM_CART:
-            return state.filter(
-                cartItem => (cartItem.id !== action.cartItemId)
-            );
-        case UPDATE_CART_ITEM:
-            return state.map(
-                cartItem => (cartItem.id) ? action.cartItem : cartItem
-            );
+                [action.id]: {
+                    ...state[action.id],
+                    qty: (Number(action.qty) < 1) ? 1 : Number(action.qty)
+                }
+            };
+            return newState;
+        }
         default:
             return state;
     }

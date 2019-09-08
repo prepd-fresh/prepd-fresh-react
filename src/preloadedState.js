@@ -43,7 +43,7 @@ const preloadedState = {
         fdga78df6gasd: {
             type: 'meal',
             id: 'fdga78df6gasd',
-            hed: 'Pesto Chicken',
+            productName: 'Pesto Chicken',
             dek: 'This is a brief description of the menu item, yum!',
             vOpt: false,
             imageUrl: 'meal_1.jpg',
@@ -51,7 +51,7 @@ const preloadedState = {
         sd79fsd89afsd: {
             type: 'meal',
             id: 'sd79fsd89afsd',
-            hed: 'Broccoli Salad',
+            productName: 'Broccoli Salad',
             dek: 'This is a brief description of the menu item, yum!',
             vOpt: true,
             imageUrl: 'meal_2.jpg',
@@ -59,7 +59,7 @@ const preloadedState = {
         a978df6g7869agasd: {
             type: 'meal',
             id: 'a978df6g7869agasd',
-            hed: 'Something Else',
+            productName: 'Something Else',
             dek: 'This is a brief description of the menu item, yum!',
             vOpt: true,
             imageUrl: 'meal_3.jpg',
@@ -235,6 +235,35 @@ const preloadedState = {
                 fat: 20,
                 pro: 22     
             },
+        },
+    },
+    cart: {
+        oisdfa01: {
+            id: "oisdfa01",
+            productId: "fdga78df6gasd",
+            name: "Chicken Pesto",
+            itemPrice: 4.99,
+            size: "regular",
+            veggie: false,
+            qty: 1
+        },
+        oisdfa02: {
+            id: "oisdfa02",
+            productId: "asdf78df6gasd",
+            name: "Broccoli Salad",
+            itemPrice: 7.99,
+            size: "large",
+            veggie: true,
+            qty: 4
+        },
+        oisdfa03: {
+            id: "oisdfa03",
+            productId: "erty78df6gasd",
+            name: "Something Else",
+            itemPrice: 7.99,
+            size: "large",
+            veggie: true,
+            qty: 2
         },
     }
 };
