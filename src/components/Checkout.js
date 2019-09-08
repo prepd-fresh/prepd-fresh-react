@@ -55,7 +55,7 @@ const Checkout = () => {
                 <h2>Checkout</h2>
                 <Cart cartItems={cartItems} />
                 <div className="total">
-                    Total ${totalPrice}
+                    Total ${totalPrice.toFixed(2)}
                 </div>
                 <p>*Meals are delivered every Sunday. The next delivery date is Sunday, July 28. Order by 11:59pm Friday, July 26 to receive your delivery this Sunday.</p>
                 {false && <div className="Stripe">

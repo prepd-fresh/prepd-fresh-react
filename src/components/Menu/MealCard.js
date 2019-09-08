@@ -87,7 +87,7 @@ const MealCard = props => {
                 <input type="number" 
                         value={state.quantity} 
                         onChange={handleQuantityChange} /> 
-                ${sizeDetails.price * quantity}
+                ${(sizeDetails.price * quantity).toFixed(2)}
             </div>
             <div className="meal-add-cart">
                 <button onClick={addToCart}>+</button>
