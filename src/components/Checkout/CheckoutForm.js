@@ -74,8 +74,11 @@ const CheckoutForm = ({stripe, cartItems, totalPrice}) => {
                 })
             }
         );
-        console.log(response.json())
-        if (response.ok) setComplete(true);
+        
+        if (response.ok) {
+            console.log(response.json())
+            setComplete(true);
+        }
     }
 
   return (complete) 
