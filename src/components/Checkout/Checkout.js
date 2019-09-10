@@ -33,7 +33,9 @@ const Checkout = () => {
                     <input placeholder="CVC" />
                 </div>}
                 <Elements>
-                    <CheckoutForm />
+                    <CheckoutForm 
+                        cartItems={cartItems} 
+                        totalPrice={totalPrice} />
                 </Elements>
             </div>
         </StripeProvider>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
 const checkoutValidationSchema = yup.object().shape({
@@ -12,25 +12,71 @@ const checkoutValidationSchema = yup.object().shape({
         .required('Required')
         .min(2, 'Too Short!')
         .max(50, 'Too Long!'),
-    address: yup.string()
+    addressLine1: yup.string()
         .required('Required')
-        .matches(
-            /^[\d]{1,}[a-zA-Z\s]{1,}$/,
-            'Invalid address format.'
-        ),
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!'),
+    addressLine2: yup.string()
+        .required('Required')
+        .min(1, 'Too Short!')
+        .max(50, 'Too Long!'),
+    city: yup.string()
+        .required('Required')
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!'),
     phoneNumber: yup.string()
         .required('Required')
+        .min(10, 'Phone number must be at least 10 digits')
+        .max(14, 'Phone number cannot be longer than 14 digits')
         .matches(
-            /^\d{3}-\d{3}-\d{4}$/, 
-            'Phone number must have the format "647-123-4567"'
+            /^\(?\d{3}\)?[\-\ ]?\ ?\d{3}[\-\ ]?\d{4}$/, 
+            'Invalid phone number format, try ###-###-####'
         ),
     email: yup.string()
         .email('Invalid email')
         .required('Required'),
-})
+});
 
-const CheckoutForm = (props) => {
+const CheckoutForm = ({stripe, cartItems, totalPrice}) => {
   const [complete, setComplete] = useState(false);
+
+  const handleSubmit = async ({
+        firstName, 
+        lastName, 
+        addressLine1, 
+        addressLine2, 
+        city,
+        email
+    }) => {
+        let customerDetails = {
+            name: `${firstName} ${lastName}`,
+            address_line1: addressLine1,
+            address_line2: addressLine2,
+            address_city: city,
+        }
+        let {token} = await stripe.createToken(customerDetails);
+        let response = await fetch(
+            "/charge", 
+            {
+                method: "POST",
+                headers: { 
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    tokenId: token.id,
+                    customerDetails: {
+                        ...customerDetails,
+                        email
+                    },
+                    cartItems,
+                    totalPrice
+                })
+            }
+        );
+        console.log(response.json())
+        if (response.ok) setComplete(true);
+    }
 
   return (complete) 
     ? <h1>Purchase Complete</h1>
@@ -40,64 +86,32 @@ const CheckoutForm = (props) => {
           initialValues={{
               firstName: "",
               lastName: "",
-              address: "",
+              addressLine1: "",
+              addressLine2: "",
+              city: "",
               phoneNumber: "",
               email: "",
           }}
           validationSchema={checkoutValidationSchema}
-          onSubmit={async ev => {
-              let {token} = await props.stripe.createToken({
-                  name: "Name"
-              });
-              let response = await fetch(
-                  "/charge", 
-                  {
-                      method: "POST",
-                      headers: { "Content-Type": "text/plain" },
-                      body: token.id
-                  }
-              );
-              if (response.ok) setComplete(true);
-          }}>
+          onSubmit={handleSubmit}>
           {({ errors, touched }) => (
               <Form>
                 <p>Would you like to finish your purchase?</p>
                 <CardElement />
-                <Field 
-                    name="firstName" 
-                    placeholder="firstName"    
-                />
-                {(errors.firstName && touched.firstName)
-                    ? <div>{errors.firstName}</div>
-                    : null}
-                <Field 
-                    name="lastName" 
-                    placeholder="lastName"    
-                />
-                {(errors.lastName && touched.lastName)
-                    ? <div>{errors.lastName}</div>
-                    : null}
-                <Field 
-                    name="address" 
-                    placeholder="address"    
-                />
-                {(errors.address && touched.address)
-                    ? <div>{errors.address}</div>
-                    : null}
-                <Field 
-                    name="phoneNumber" 
-                    placeholder="phoneNumber"    
-                />
-                {(errors.phoneNumber && touched.phoneNumber)
-                    ? <div>{errors.phoneNumber}</div>
-                    : null}
-                <Field 
-                    name="email" 
-                    placeholder="email"    
-                />
-                {(errors.email && touched.email)
-                    ? <div>{errors.email}</div>
-                    : null}
+                <Field name="firstName" placeholder="firstName" />
+                <ErrorMessage name="firstName" />
+                <Field name="lastName" placeholder="lastName" />
+                <ErrorMessage name="lastName" />
+                <Field name="addressLine1" placeholder="address line 1" />
+                <ErrorMessage name="addressLine1" />
+                <Field name="addressLine2" placeholder="address line 2" />
+                <ErrorMessage name="addressLine2" />
+                <Field name="city" placeholder="city" />
+                <ErrorMessage name="city" />
+                <Field name="phoneNumber" placeholder="phoneNumber" />
+                <ErrorMessage name="phoneNumber" />
+                <Field name="email" placeholder="email" />
+                <ErrorMessage name="email" />
                 <br/><button type="submit">Pay $</button>
               </Form>
             )}
