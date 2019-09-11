@@ -12,11 +12,6 @@ import Checkout from './Checkout/Checkout';
 const App = () => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
-  // componentDidMount() {
-  //   fetch('/api')
-  //       .then(response => response.json())
-  //       .then(initialState => this.setState(initialState))
-  // }
 
   return (
     <BrowserRouter>
@@ -31,7 +26,7 @@ const App = () => {
             <Route path="/menu/" render={props => <Menu {...props} />} />
             <Route render={() => <h2>404: Page not found</h2>} />
           </Switch>
-          {state.cartIsVisible && <Checkout {...state} />}
+          <Checkout cartIsVisible={state.cartIsVisible} />
         </main>
         <Footer />
       </div>
