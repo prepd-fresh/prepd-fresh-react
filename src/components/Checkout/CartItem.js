@@ -7,7 +7,7 @@ const CartItem = ({cartItem: {name, ...cartItem}}) => {
     const removeFromCart = () => dispatch(removeItemFromCart(cartItem.id));
     const updateItemQty = e => dispatch(updateCartItemQty(
         cartItem.id, 
-        Number(e.target.value)
+        e.target.value
     ));
     return (
         <div className="CartItem">
@@ -16,7 +16,10 @@ const CartItem = ({cartItem: {name, ...cartItem}}) => {
                 <p>{cartItem.size}{cartItem.veggie && ', vegetarian'}</p>
             </div>
             <p>${cartItem.itemPrice}</p>
-            <p>Quantity <input type="number" 
+            <p>Quantity 
+                <input 
+                    pattern="[0-9]*" 
+                    type="text" 
                     value={cartItem.qty} 
                     onChange={updateItemQty}/></p>
             <div className="delete-btn">

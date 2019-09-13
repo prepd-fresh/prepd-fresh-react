@@ -86,14 +86,20 @@ function cart(state = {}, action) {
             return newState;
         }
         case UPDATE_CART_ITEM_QTY: {
-            const newState = {
-                ...state,
-                [action.id]: {
-                    ...state[action.id],
-                    qty: (Number(action.qty) < 1) ? 1 : Number(action.qty)
-                }
-            };
-            return newState;
+            if (Number(action.qty) || action.qty === '') {
+                const newState = {
+                    ...state,
+                    [action.id]: {
+                        ...state[action.id],
+                        qty: (action.qty !== 0 && action.qty == false) 
+                                ? '' 
+                                : Math.abs(Number(action.qty))
+                    }
+                };
+                return newState;
+            } else {
+                return state;
+            }
         }
         default:
             return state;
