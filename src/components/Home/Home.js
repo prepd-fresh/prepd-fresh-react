@@ -1,5 +1,4 @@
 import React from 'react';
-import './Home.css';
 import Header from './Header';
 import Slider from './Slider';
 import InfoCard from './InfoCard';

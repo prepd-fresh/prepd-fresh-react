@@ -1,5 +1,4 @@
 import React from 'react';
-import './Testimonial.css';
 import styled from 'styled-components';
 
 const Testimonial = props => {

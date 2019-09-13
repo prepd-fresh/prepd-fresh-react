@@ -1,5 +1,4 @@
 import React from 'react';
-import './InfoCard.css';
 import styled from 'styled-components';
 
 const InfoCard = props => (

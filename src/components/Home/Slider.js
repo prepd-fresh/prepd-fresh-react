@@ -1,5 +1,4 @@
 import React from 'react';
-import './Slider.css';
 import styled from 'styled-components';
 
 const Slider = props => {
