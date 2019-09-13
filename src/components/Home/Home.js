@@ -4,6 +4,7 @@ import Header from './Header';
 import Slider from './Slider';
 import InfoCard from './InfoCard';
 import Testimonial from './Testimonial';
+import styled from 'styled-components';
 
 const Home = props => {
     const style = {backgroundImage: `url('./img/${props.testimonialHeadingImgUrl}')`};
@@ -25,4 +26,58 @@ const Home = props => {
     )
 };
 
-export default Home;
+export default styled(Home)`
+    .Home hr {
+        max-width: 90%;
+    }
+
+    .Home h2 {
+        text-align: center;
+    }
+
+    .img-overlay {
+        height: 150px;
+        border: 1px solid blue;
+        margin: 40px 0;
+        text-align: center;
+        background-size: cover;
+        background-position: center;
+        color: white;
+        font-weight: normal;
+    }
+
+    .InfoCard-container {
+        display: grid;
+        margin: 20px;
+        grid-row-gap: 40px;
+    }
+
+    .Testimonial-container {
+        display: grid;
+        margin: 80px 20px 20px 20px;
+        grid-row-gap: 80px;
+    }
+
+    .Slider-wrapper {
+        border: 1px solid blue;
+        padding-top: 40%;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .Slider-wrapper {
+            margin: 40px;
+        }
+
+        .InfoCard-container {
+            grid-template: auto / 1fr 1fr 1fr;
+            margin: 20px 40px;
+            grid-column-gap: 40px;
+        }
+
+        .Testimonial-container {
+            grid-template: auto / 1fr 1fr 1fr;
+            margin: 80px 40px 20px 40px;
+            grid-column-gap: 40px;
+        }
+    }
+`;

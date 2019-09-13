@@ -1,5 +1,6 @@
 import React from 'react';
 import './Slider.css';
+import styled from 'styled-components';
 
 const Slider = props => {
     const style = {backgroundImage: `url('./img/${props.sliderImgUrl}')`};
@@ -12,4 +13,9 @@ const Slider = props => {
     );
 };
 
-export default Slider;
+export default styled(Slider)`
+    .Slider-wrapper {
+        background-size: cover;
+        background-position: center;
+    }
+`;

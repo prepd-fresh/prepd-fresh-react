@@ -1,5 +1,6 @@
 import React from 'react';
 import './InfoCard.css';
+import styled from 'styled-components';
 
 const InfoCard = props => (
     <div className="InfoCard">
@@ -9,4 +10,16 @@ const InfoCard = props => (
     </div>
 );
 
-export default InfoCard;
+export default styled(InfoCard)`
+    .InfoCard {
+        border: 1px solid blue;
+    }
+
+    .InfoCard-img {
+        padding-top: 50%;
+        width: 100%;
+        border: 1px solid green;
+        background-size: cover;
+        background-position: center;
+    }
+`;
