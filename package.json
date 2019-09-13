@@ -16,6 +16,7 @@
     "react-stripe-elements": "^4.0.1",
     "redux": "^4.0.4",
     "stripe": "^7.8.0",
+    "styled-components": "^4.3.2",
     "uuid": "^3.3.3",
     "yup": "^0.27.0"
   },
