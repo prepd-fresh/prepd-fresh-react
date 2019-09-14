@@ -9,6 +9,12 @@ import { Provider } from 'react-redux';
 import prepdApp from './reducers';import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+  h1, h2, h3, h4, h5, h6, p {
+    color: #3E444B;
+  }
   body {
     min-height: 100vh;
   }
