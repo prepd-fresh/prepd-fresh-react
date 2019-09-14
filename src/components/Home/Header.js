@@ -4,8 +4,7 @@ import styled from 'styled-components';
 
 const Header = props => (
     <header 
-        className={props.className} 
-        style={{backgroundImage: `url('/img/${props.heroImageUrl}')`}}>
+        className={props.className} >
         <h1>Student life made easy</h1>
         <Link to="/menu/">ORDER NOW</Link>&nbsp;
         <p>New menu weekly | No tax | Free delivery</p>
@@ -15,10 +14,38 @@ const Header = props => (
 export default styled(Header)`
 
     text-align: center;
-    border: 1px solid blue;
+    background: linear-gradient(
+      rgba(100, 100, 100, 0.45), 
+      rgba(100, 100, 100, 0.45)
+    ), url('/img/${props => props.heroImageUrl}');
     background-size: cover;
     background-position: center;
     color: white;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    & h1 {
+        font-family: Roboto;
+        font-weight: normal;
+        font-size: 22px;
+    }
+
+    & > a {
+        line-height: 35px;
+        background-color: #F8951D;
+        width: 110px;
+        border-radius: 4px;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    & > p {
+        margin: 10px 0;
+        font-size: 14px;
+    }
 
     @media screen and (min-width: 1024px) {
         header {
