@@ -30,6 +30,7 @@ export default styled(Header)`
         font-family: Roboto;
         font-weight: normal;
         font-size: 22px;
+        color: #FFF;
     }
 
     & > a {
@@ -37,7 +38,7 @@ export default styled(Header)`
         background-color: #F8951D;
         width: 110px;
         border-radius: 4px;
-        color: white;
+        color: #FFF;
         text-decoration: none;
         font-size: 12px;
     }
@@ -45,6 +46,7 @@ export default styled(Header)`
     & > p {
         margin: 10px 0;
         font-size: 14px;
+        color: #FFF;
     }
 
     @media screen and (min-width: 1024px) {
