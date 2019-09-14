@@ -17,8 +17,12 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     min-height: 100vh;
+  }
+
+  body, html {
     overflow: ${props => props.cartIsVisible ? 'hidden' : 'auto'}
   }
+}
 `
 
 const store = createStore(
