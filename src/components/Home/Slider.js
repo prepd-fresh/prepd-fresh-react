@@ -6,7 +6,6 @@ const Slider = props => {
 
     return (
         <div className={props.className}>
-            <h2>How it works</h2>
             <div className="Slider-wrapper" style={style}>Slider goes here</div>
         </div>
     );
