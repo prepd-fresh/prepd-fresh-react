@@ -44,6 +44,8 @@ export default styled(Checkout)`
         box-sizing: border-box;
         padding: 60px 20px 20px 20px;
         position: fixed;
+        overflow-y: scroll;
+        pointer-events: auto;
         transform: translateX(100%);
         top: 0;
         right: 0;

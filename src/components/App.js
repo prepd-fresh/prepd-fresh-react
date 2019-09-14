@@ -35,9 +35,6 @@ const App = props => {
 }
 
 export default styled(App)`
-  * {
-    box-sizing: border-box;
-  }
 
   background-color: #FAF8F4; 
   min-height: 100vh;

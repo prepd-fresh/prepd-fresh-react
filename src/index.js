@@ -5,7 +5,7 @@ import App from './components/App';
 import preloadedState from './preloadedState';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import prepdApp from './reducers';import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     min-height: 100vh;
+    overflow: ${props => props.cartIsVisible ? 'hidden' : 'auto'}
   }
 `
 
@@ -25,13 +26,20 @@ const store = createStore(
     preloadedState
 )
 
+const StyledApp = props => {
+  const cartIsVisible = useSelector(state => state.cartIsVisible);
+  return (
+      <React.Fragment>
+        <GlobalStyle {...{cartIsVisible}} />
+        <App />
+      </React.Fragment>
+  );
+}
+
 ReactDOM.render(
-    <React.Fragment>
-        <GlobalStyle />
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </React.Fragment>, 
+    <Provider store={store}>,
+      <StyledApp />
+    </Provider>,
     document.getElementById('root')
 );
 
