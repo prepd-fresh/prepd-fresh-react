@@ -18,7 +18,7 @@ const Menu = props => {
         ...state.productNutrition
     }));
     return (
-        <div className="Menu">
+        <div className={props.className}>
             <h2>Menu</h2>
             <p>Choose from our weekly rotating selection of dishes!</p>
             <p>Meals are delivered every Sunday. The next delivery date is Sunday, July 28. Order by 11:59pm Friday, July 26 to receive your delivery this Sunday.</p>

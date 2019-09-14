@@ -54,7 +54,7 @@ const MealCard = props => {
     }))
 
     return (
-        <div className="MealCard">
+        <div className={props.className}>
             <div className="meal-img" style={style}></div>
             <div className="meal-info-options">
                 <h3>{props.productName}</h3>
