@@ -41,16 +41,8 @@ export default styled(Menu)`
     }
 
     .MealCard-container {
-        display: grid;
-        grid-template: auto / 1fr;
-        grid-row-gap: 20px;
-        margin: 40px 0;
-    }
-
-    @media screen and (min-width: 1024px) {
-        .MealCard-container {
-            grid-template: auto / 1fr 1fr 1fr;
-            grid-column-gap: 20px;
-        }
+        display: flex;
+        flex-direction: column;
+        margin: 0;
     }
 `;

@@ -11,7 +11,6 @@ const MealCard = props => {
         isVeggie: false
     });
 
-    const style = { backgroundImage: `url('/img/${props.imageUrl}')` };
     const { id } = props;
     const { size, quantity, isVeggie } = state;
     const sizeDetails = Object.keys(props.sizeVariants)
@@ -54,44 +53,57 @@ const MealCard = props => {
     }))
 
     return (
-        <div className={props.className}>
-            <div className="meal-img" style={style}></div>
-            <div className="meal-info-options">
-                <h3>{props.productName}</h3>
-                <p>{props.dek}</p>
-                <input 
-                    type="radio" 
-                    value="reg"
-                    onChange={handleChange('size')}
-                    checked={state.size === 'reg'}
-                    name={`${props.id}-size`} />
-                <label>Regular</label>
-                <input 
-                    type="radio" 
-                    value="lg"
-                    onChange={handleChange('size')}
-                    checked={state.size === 'lg'}
-                    name={`${props.id}-size`} />
-                <label>Large</label>
-                {props.vOpt && 
-                <React.Fragment>
-                    <input 
-                        type="checkbox"
-                        onChange={toggle('isVeggie')} 
-                        checked={state.isVeggie}/>
-                    <label>Vegetarian</label>
-                </React.Fragment>}
-            </div>
-            <div className="meal-quantity-price">
-                <label>Quantity</label>
-                <input type="number" 
-                        value={state.quantity} 
-                        onChange={handleQuantityChange} /> 
-                ${(sizeDetails.price * quantity).toFixed(2)}
+        <div className={"MealCard " + props.className}>
+            <div className="top-row">
+                <div className="meal-img-wrapper">
+                    <img className="meal-img" src={`/img/${props.imageUrl}`} />
+                </div>
+                <div className="meal-details">
+                    <div className="meal-info-options">
+                        <h3>{props.productName}</h3>
+                        <p>{props.dek}</p>
+                        <label>
+                            <input 
+                                type="radio" 
+                                value="reg"
+                                onChange={handleChange('size')}
+                                checked={state.size === 'reg'}
+                                name={`${props.id}-size`} />
+                            Regular
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                value="lg"
+                                onChange={handleChange('size')}
+                                checked={state.size === 'lg'}
+                                name={`${props.id}-size`} />
+                            Large
+                        </label>
+                        {props.vOpt && (
+                            <label>
+                                <input 
+                                    type="checkbox"
+                                    onChange={toggle('isVeggie')} 
+                                    checked={state.isVeggie}/>
+                                Vegetarian
+                            </label>
+                        )}
+                    </div>
+                    <hr/>
+                    <div className="meal-quantity-price">
+                        <label>Quantity</label>
+                        <input type="number" 
+                                value={state.quantity} 
+                                onChange={handleQuantityChange} /> 
+                        ${(sizeDetails.price * quantity).toFixed(2)}
+                    </div>
+                </div>
             </div>
             <div className="meal-add-cart">
                 <button onClick={addToCart}>+</button>
             </div>
+            <hr />
             <div className="meal-nutrition">
                 <p>{`Cal ${cal * quantity} - Carbs ${car * quantity}g - Fat ${fat * quantity}g - Protein ${pro * quantity}g`}</p>
             </div>
@@ -101,21 +113,28 @@ const MealCard = props => {
 
 export default styled(MealCard)`
     & {
-        border: 1px solid blue;
         box-sizing: content-box;
-        display: grid;
-        grid-template: 80px 20px auto / 100px 1fr;
-        height: 150px;
-    }
-
-    & > * {
-        border: 1px solid green;
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0;
+        background-color: #FFF;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        padding: 10px;
     }
 
     & h3 {
         font-size: 12px;
         margin: 5px;
         font-weight: normal;
+    }
+
+    .meal-details {
+        display: flex;
+        flex-shrink: 3;
+        ${'' /* display: inline-block; */}
+        flex-direction: column;
+        padding: 0 5px;
     }
 
     & .meal-info-options p {
@@ -129,10 +148,31 @@ export default styled(MealCard)`
         font-size: 11px;
     }
 
+    .top-row {
+        display: flex;
+        justify-content: flex-start;
+    }
+
     .meal-img {
-        grid-area: 1 / 1 / span 2 / span 1;
-        background-size: cover;
-        background-position: center;
+        position: absolute;
+        top: -100%;
+        right: -100%;
+        bottom: -100%;
+        left: -100%;
+        height: 100%;
+        display: inline;
+        margin: auto;
+    }
+
+    .meal-img-wrapper {
+        ${'' /* display: inline-block; */}
+        position: relative;
+        flex: 0 0 auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+        overflow: hidden;
+        text-align: center;
     }
 
     .meal-quantity-price input {
@@ -141,12 +181,15 @@ export default styled(MealCard)`
 
     .meal-add-cart,
     .meal-nutrition {
-        grid-column: 1 / span 2;
         text-align: center;
     }
 
     .meal-nutrition {
         font-size: 11px;
+        p {
+            color: #A7A5A5;
+            margin: 0;
+        }
     }
 
     button {
@@ -154,25 +197,19 @@ export default styled(MealCard)`
         border: none;
         color: white;
         border-radius: 2px;
+        width: 100%;
+        height: 30px;
+        margin-top: 10px;
+    }
+
+    hr {
+        width: 100%;
+        border: 0.75px solid #f1f1f1;
     }
 
     @media screen and (min-width: 1024px) {
         & {
-            grid-template: 150px 2fr repeat(2, 1fr) / 1fr 1fr;
             height: 350px;
-        }
-
-        .meal-img {
-            grid-area: 1 / 1 / span 1 / span 2;
-        }
-        
-        .meal-add-cart {
-            grid-column: 2 / span 1;
-        }
-
-        .meal-info-options,
-        .meal-nutrition {
-            grid-column: 1 / span 2;
         }
     }
 `;
