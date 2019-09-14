@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const InfoCard = props => (
-    <div className="InfoCard">
+    <div className={props.className}>
         <div className="InfoCard-img" style={{backgroundImage: `url('./img/${props.imageUrl}')`}}></div>
         <h3>{props.hed}</h3>
         <p>{props.dek}</p>
@@ -10,9 +10,8 @@ const InfoCard = props => (
 );
 
 export default styled(InfoCard)`
-    .InfoCard {
-        border: 1px solid blue;
-    }
+
+    border: 1px solid blue;
 
     .InfoCard-img {
         padding-top: 50%;

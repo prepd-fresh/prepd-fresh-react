@@ -5,7 +5,7 @@ const Testimonial = props => {
 
     const style = {backgroundImage: `url('./img/${props.imageUrl}')`};
     return (
-        <div className="Testimonial">
+        <div className={props.className}>
             <div className="Testimonial-img" style={style} />
             <h3>{props.name}</h3>
             <blockquote>{props.quote}</blockquote>
@@ -14,14 +14,13 @@ const Testimonial = props => {
 };
 
 export default styled(Testimonial)`
-    .Testimonial {
-        text-align: center;
-        border: 1px solid blue;
-        /* margin: 70px 20px 20px 20px; */
-        position: relative;
-        z-index: 1;
-        padding-top: 50px;
-    }
+
+    text-align: center;
+    border: 1px solid blue;
+    /* margin: 70px 20px 20px 20px; */
+    position: relative;
+    z-index: 1;
+    padding-top: 50px;
 
     .Testimonial-img {
         width: 100px;

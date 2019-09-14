@@ -5,7 +5,7 @@ const Slider = props => {
     const style = {backgroundImage: `url('./img/${props.sliderImgUrl}')`};
 
     return (
-        <div className="Slider">
+        <div className={props.className}>
             <h2>How it works</h2>
             <div className="Slider-wrapper" style={style}>Slider goes here</div>
         </div>

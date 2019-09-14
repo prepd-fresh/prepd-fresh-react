@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const Home = props => {
     const style = {backgroundImage: `url('./img/${props.testimonialHeadingImgUrl}')`};
     return (
-        <div className="Home">
+        <div className={props.className}>
             <Header {...props} />
             <Slider {...props} />
             <hr/>
@@ -26,11 +26,11 @@ const Home = props => {
 };
 
 export default styled(Home)`
-    .Home hr {
+    hr {
         max-width: 90%;
     }
 
-    .Home h2 {
+    h2 {
         text-align: center;
     }
 
