@@ -49,6 +49,8 @@ export default styled(Checkout)`
         right: 0;
         background-color: #FAF8F4;
         height: 100%;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        z-index: 1;
     }
     &.slide-in {
         animation: slide-in 0.25s forwards;
