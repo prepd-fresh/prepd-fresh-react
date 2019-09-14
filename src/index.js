@@ -24,7 +24,6 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     height: 100%;
   }
-}
 `
 
 const store = createStore(
@@ -43,7 +42,7 @@ const StyledApp = props => {
 }
 
 ReactDOM.render(
-    <Provider store={store}>,
+    <Provider store={store}>
       <StyledApp />
     </Provider>,
     document.getElementById('root')
