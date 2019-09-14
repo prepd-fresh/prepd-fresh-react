@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import MealCard from './MealCard';
-import './Menu.css';
+import styled from 'styled-components';
 
 const isProductType = desiredType => product => desiredType === product.type
 const toProductByIdFrom = productsObj => productId => productsObj[productId] 
@@ -35,4 +35,22 @@ const Menu = props => {
     );
 };
 
-export default Menu;
+export default styled(Menu)`
+    & {
+        padding: 0 20px;
+    }
+
+    .MealCard-container {
+        display: grid;
+        grid-template: auto / 1fr;
+        grid-row-gap: 20px;
+        margin: 40px 0;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .MealCard-container {
+            grid-template: auto / 1fr 1fr 1fr;
+            grid-column-gap: 20px;
+        }
+    }
+`;

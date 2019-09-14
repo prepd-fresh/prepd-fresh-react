@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../../actions'
-import './MealCard.css';
+import styled from 'styled-components';
 
 const MealCard = props => {
 
@@ -99,4 +99,80 @@ const MealCard = props => {
     )
 };
 
-export default MealCard;
+export default styled(MealCard)`
+    & {
+        border: 1px solid blue;
+        box-sizing: content-box;
+        display: grid;
+        grid-template: 80px 20px auto / 100px 1fr;
+        height: 150px;
+    }
+
+    & > * {
+        border: 1px solid green;
+    }
+
+    & h3 {
+        font-size: 12px;
+        margin: 5px;
+        font-weight: normal;
+    }
+
+    & .meal-info-options p {
+        font-size: 11px;
+        font-style: italic;
+        color: grey;
+        margin: 0 5px;
+    }
+
+    & label {
+        font-size: 11px;
+    }
+
+    .meal-img {
+        grid-area: 1 / 1 / span 2 / span 1;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .meal-quantity-price input {
+        width: 33%;
+    }
+
+    .meal-add-cart,
+    .meal-nutrition {
+        grid-column: 1 / span 2;
+        text-align: center;
+    }
+
+    .meal-nutrition {
+        font-size: 11px;
+    }
+
+    button {
+        background: #23B47E;
+        border: none;
+        color: white;
+        border-radius: 2px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        & {
+            grid-template: 150px 2fr repeat(2, 1fr) / 1fr 1fr;
+            height: 350px;
+        }
+
+        .meal-img {
+            grid-area: 1 / 1 / span 1 / span 2;
+        }
+        
+        .meal-add-cart {
+            grid-column: 2 / span 1;
+        }
+
+        .meal-info-options,
+        .meal-nutrition {
+            grid-column: 1 / span 2;
+        }
+    }
+`;
