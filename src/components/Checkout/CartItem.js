@@ -28,7 +28,7 @@ const CartItem = ({className, cartItem: {name, ...cartItem}}) => {
             </div>
             <FontAwesomeIcon 
                 icon={faTrashAlt} 
-                size="md" 
+                size="1x" 
                 onClick={removeFromCart} />
         </div>
     );
