@@ -20,7 +20,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body, html {
-    overflow: ${props => props.cartIsVisible ? 'hidden' : 'auto'}
+    overflow: ${props => props.cartIsVisible ? 'hidden' : 'auto'};
+    position: relative;
+    height: 100%;
   }
 }
 `
