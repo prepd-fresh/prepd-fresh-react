@@ -9,13 +9,13 @@ import Menu from './Menu/Menu';
 import Checkout from './Checkout/Checkout';
 import styled from 'styled-components';
 
-const App = () => {
+const App = props => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className={props.className}>
         <NavMenu />
         <main>
           <Switch>
@@ -39,10 +39,9 @@ export default styled(App)`
     box-sizing: border-box;
   }
 
-  body {
-    background-color: #FAF8F4; 
-    min-height: 100vh;
-  }
+  background-color: #FAF8F4; 
+  min-height: 100vh;
+  padding-top: 40px;
 
   main {
     position: relative;
@@ -50,14 +49,12 @@ export default styled(App)`
 
   main > * {
     width: 320px;
-    border: 1px solid red;
     margin: auto;
     height: auto;
   }
 
   .NavMenu {
     height: 40px;
-    border: 1px solid blue;
   }
 
   @media screen and (min-width: 1024px) {
