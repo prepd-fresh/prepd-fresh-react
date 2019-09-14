@@ -6,7 +6,7 @@ const Header = props => (
     <header 
         className={props.className} >
         <h1>Student life made easy</h1>
-        <Link to="/menu/">ORDER NOW</Link>&nbsp;
+        <Link to="/meals/">ORDER NOW</Link>&nbsp;
         <p>New menu weekly | No tax | Free delivery</p>
     </header>
 );
