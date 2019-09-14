@@ -11,13 +11,27 @@ const InfoCard = props => (
 
 export default styled(InfoCard)`
 
-    border: 1px solid blue;
 
     .InfoCard-img {
-        padding-top: 50%;
+        padding-top: 58%;
         width: 100%;
-        border: 1px solid green;
+        border-radius: 5px;
         background-size: cover;
         background-position: center;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    }
+
+    h3 {
+        font-weight: 400;
+        padding: 0;
+        margin: 10px 0;
+        color: #3E444B;
+    }
+
+    p {
+        font-size: 14px;
+        padding: 0;
+        margin: 10px 0;
+        color: #3E444B;
     }
 `;
