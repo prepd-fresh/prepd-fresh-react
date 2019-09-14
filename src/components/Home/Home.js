@@ -6,16 +6,16 @@ import Testimonial from './Testimonial';
 import styled from 'styled-components';
 
 const Home = props => {
-    const style = {backgroundImage: `url('./img/${props.testimonialHeadingImgUrl}')`};
     return (
         <div className={props.className}>
             <Header {...props} />
-            <Slider {...props} />
-            <hr/>
+            <h2>How it works</h2>
+            {/* <Slider {...props} /> */}
+            {/* <hr/> */}
             <div className="InfoCard-container">
                 {props.infoCards.map((card, i) => <InfoCard key={`id${i}`} {...card} />)}
             </div>
-            <div className="img-overlay" style={style}>
+            <div className="img-overlay">
                 <h2>What are people saying about Prep'd Fresh?</h2>
             </div>
             <div className="Testimonial-container">
@@ -32,17 +32,28 @@ export default styled(Home)`
 
     h2 {
         text-align: center;
+        color: #3E444B;
     }
 
     .img-overlay {
         height: 150px;
-        border: 1px solid blue;
+        background-image: linear-gradient(
+            rgba(100, 100, 100, 0.45), 
+            rgba(100, 100, 100, 0.45)
+        ), url('./img/${props => props.testimonialHeadingImgUrl}');
         margin: 40px 0;
         text-align: center;
         background-size: cover;
         background-position: center;
         color: white;
         font-weight: normal;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 190px;
+        & > h2 { 
+            color: #FFF;
+        }
     }
 
     .InfoCard-container {
@@ -58,7 +69,6 @@ export default styled(Home)`
     }
 
     .Slider-wrapper {
-        border: 1px solid blue;
         padding-top: 40%;
     }
 

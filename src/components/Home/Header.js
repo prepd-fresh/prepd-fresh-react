@@ -21,7 +21,7 @@ export default styled(Header)`
     background-size: cover;
     background-position: center;
     color: white;
-    height: 250px;
+    height: 210px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -39,7 +39,7 @@ export default styled(Header)`
         border-radius: 4px;
         color: white;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 12px;
     }
 
     & > p {

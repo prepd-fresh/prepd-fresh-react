@@ -23,7 +23,7 @@ const App = props => {
               path="/" 
               exact 
               render={props => <Home {...{...props, ...state}} />} />
-            <Route path="/menu/" render={props => <Menu {...props} />} />
+            <Route path="/meals/" render={props => <Menu {...props} />} />
             <Route render={() => <h2>404: Page not found</h2>} />
           </Switch>
           <Checkout cartIsVisible={state.cartIsVisible} />
@@ -69,6 +69,6 @@ export default styled(App)`
 
   .Footer {
     height: 40px;
-    border: 1px solid blue;
+    background-color: #3E444B;
   }
 `;

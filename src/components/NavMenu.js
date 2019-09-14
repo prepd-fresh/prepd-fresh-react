@@ -15,9 +15,10 @@ const NavMenu = props => {
             <Link to="/">
                 <img className="logo" alt="logo" src={logo} />
             </Link>&nbsp;
-            <Link to="/menu/">
-                {/* <FontAwesomeIcon icon={faCarrot} size="lg" color="#F8951D" />             */}
-                <FontAwesomeIcon icon={faBookOpen} size="lg" color="#F8951D" />            
+            <Link to="/meals/">
+                {/*<FontAwesomeIcon icon={faCarrot} size="lg" color="#F8951D" />*/}
+                {/* <FontAwesomeIcon icon={faBookOpen} size="lg" color="#F8951D" /> */}
+                Meals
             </Link>&nbsp;
             <button onClick={handleCheckoutPanelToggle}>
                 <FontAwesomeIcon icon={faShoppingCart} size="lg" color="#F8951D" />
@@ -29,7 +30,8 @@ const NavMenu = props => {
 export default styled(NavMenu)`
     height: 40px;
     display: flex;
-    justify-content: space-between;
+    ${'' /* justify-content: space-between; */}
+    justify-content: flex-start;
     color: #F8951D;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16);
     position: fixed;
@@ -37,6 +39,15 @@ export default styled(NavMenu)`
     width: 100%;
     background-color: #FFFFFF;
     z-index: 2;
+    a {
+        text-decoration: none;
+        color: #F8951D;
+    }
+    button {
+        margin-left: auto;
+        outline: none;
+        border: none;
+    }
     & > * {
         margin: 10px;
     }
