@@ -16,8 +16,11 @@ const Checkout = ({cartIsVisible, className}) => {
     return (
         // This is the test private for Dustin's Stripe account. TODO: Change to Ben's
         <StripeProvider apiKey="pk_test_dxJRiJo1wDpI8NWpKyTy9WII00GF5Wl5rQ">
-            <div className={className} 
-                 style={{display: cartIsVisible ? "block" : "none"}}>
+            <div className={"Checkout " +
+                            (cartIsVisible 
+                                ? "slide-in " 
+                                : "slide-out ") 
+                            + className}>
                 <h2>Checkout</h2>
                 <Cart cartItems={cartItems} />
                 <div className="total">
@@ -35,16 +38,40 @@ const Checkout = ({cartIsVisible, className}) => {
 }
 
 export default styled(Checkout)`
-    & {
+
+    && {
         width: 320px;
         border: 1px solid blue;
         box-sizing: border-box;
-        padding: 20px;
-        position: absolute;
+        padding: 60px 20px 20px 20px;
+        position: fixed;
+        transform: translateX(100%);
         top: 0;
         right: 0;
         background-color: #FAF8F4;
         height: 100%;
+    }
+    &.slide-in {
+        animation: slide-in 0.25s forwards;
+    }
+
+    &.slide-out {
+        animation: slide-out 0.25s forwards;
+    }
+
+    @keyframes slide-in {
+        100% {
+            transform: translateX(0%)
+        }
+    }
+
+    @keyframes slide-out {
+        0% {
+            transform: translateX(0%)
+        }
+        100% {
+            transform: translateX(100%)
+        }
     }
 
     & h2 {
