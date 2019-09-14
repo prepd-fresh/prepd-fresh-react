@@ -6,7 +6,13 @@ import preloadedState from './preloadedState';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import prepdApp from './reducers';
+import prepdApp from './reducers';import styled, { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    min-height: 100vh;
+  }
+`
 
 const store = createStore(
     prepdApp,
@@ -14,9 +20,12 @@ const store = createStore(
 )
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>, 
+    <React.Fragment>
+        <GlobalStyle />
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.Fragment>, 
     document.getElementById('root')
 );
 
