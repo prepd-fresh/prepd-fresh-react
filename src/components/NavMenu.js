@@ -47,6 +47,7 @@ export default styled(NavMenu)`
         margin-left: auto;
         outline: none;
         border: none;
+        background-color: #FFF;
     }
     & > * {
         margin: 10px;
