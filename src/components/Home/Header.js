@@ -5,8 +5,10 @@ import styled from 'styled-components';
 const Header = props => (
     <header 
         className={props.className} >
-        <h1>Student life made easy</h1>
-        <Link to="/meals/">ORDER NOW</Link>&nbsp;
+        <div className="header-centered">
+            <h1>Student life made easy</h1>
+            <Link to="/meals/">ORDER NOW</Link>&nbsp;
+        </div>
         <p>New menu weekly | No tax | Free delivery</p>
     </header>
 );
@@ -26,14 +28,22 @@ export default styled(Header)`
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    & h1 {
+    .header-centered {
+        flex: 1 1 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    h1 {
         font-family: Roboto;
         font-weight: normal;
         font-size: 22px;
         color: #FFF;
     }
 
-    & > a {
+    a {
         line-height: 35px;
         background-color: #F8951D;
         width: 110px;
@@ -43,15 +53,24 @@ export default styled(Header)`
         font-size: 12px;
     }
 
-    & > p {
-        margin: 10px 0;
+    p {
         font-size: 14px;
         color: #FFF;
+        ${'' /* flex: 0 0 auto; */}
+    }
+
+    @media screen and (min-width: 768px) {
+        min-height: 400px;
+        h1 {
+            font-size: 42px;
+        }
+        p {
+            font-size: 24px;
+            margin: 10px;
+        }
     }
 
     @media screen and (min-width: 1024px) {
-        header {
-            min-height: 100vh;
-        }
+        height: calc(100vh - 40px);
     }
 `;

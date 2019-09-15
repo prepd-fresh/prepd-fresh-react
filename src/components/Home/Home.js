@@ -57,36 +57,42 @@ export default styled(Home)`
     }
 
     .InfoCard-container {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         margin: 20px;
         grid-row-gap: 40px;
+        flex-wrap: wrap;
     }
 
     .Testimonial-container {
-        display: grid;
+        display: flex;
         margin: 80px 20px 20px 20px;
-        grid-row-gap: 80px;
+        flex-direction: column;
+        flex-wrap: wrap;
     }
 
     .Slider-wrapper {
         padding-top: 40%;
     }
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 768px) {
         .Slider-wrapper {
             margin: 40px;
         }
 
         .InfoCard-container {
-            grid-template: auto / 1fr 1fr 1fr;
+            flex-direction: row;
             margin: 20px 40px;
-            grid-column-gap: 40px;
         }
 
         .Testimonial-container {
-            grid-template: auto / 1fr 1fr 1fr;
+            flex-direction: row;
             margin: 80px 40px 20px 40px;
-            grid-column-gap: 40px;
+        }
+        .img-overlay h2 {
+            padding: 25%;
+            font-size: 34px;
+            font-weight: 400;
         }
     }
 `;

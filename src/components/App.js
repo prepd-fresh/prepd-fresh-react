@@ -42,10 +42,10 @@ export default styled(App)`
 
   main {
     position: relative;
+    min-height: calc(100vh - 100px)
   }
 
   main > * {
-    width: 320px;
     margin: auto;
     height: auto;
   }
@@ -67,5 +67,7 @@ export default styled(App)`
   .Footer {
     height: 40px;
     background-color: #3E444B;
+    z-index: 1;
+    width: 100%;
   }
 `;

@@ -10,12 +10,11 @@ const InfoCard = props => (
 );
 
 export default styled(InfoCard)`
-
-
+    margin: 5px;
     .InfoCard-img {
         padding-top: 58%;
         width: 100%;
-        border-radius: 5px;
+        border-radius: 10px;
         background-size: cover;
         background-position: center;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16);
@@ -33,5 +32,8 @@ export default styled(InfoCard)`
         padding: 0;
         margin: 10px 0;
         color: #3E444B;
+    }
+    @media screen and (min-width: 768px) {
+        flex: 1 1 30%;
     }
 `;
