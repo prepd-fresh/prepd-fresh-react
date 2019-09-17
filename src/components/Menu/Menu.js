@@ -38,11 +38,19 @@ const Menu = props => {
 export default styled(Menu)`
     & {
         padding: 0 20px;
+        height: 100%;
     }
 
     .MealCard-container {
         display: flex;
         flex-direction: column;
+        align-items: center;
         margin: 0;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .MealCard-container {
+            flex-direction: row;
+        }
     }
 `;
