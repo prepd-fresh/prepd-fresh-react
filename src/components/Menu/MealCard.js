@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../../actions'
+import { addItemToCart } from '../../actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 const MealCard = props => {
@@ -101,7 +103,12 @@ const MealCard = props => {
                 </div>
             </div>
             <div className="meal-add-cart">
-                <button onClick={addToCart}>+</button>
+                <button onClick={addToCart}>
+                    <FontAwesomeIcon
+                        icon={faCartPlus}
+                        size="1x"
+                        color="#FFF" />
+                </button>
             </div>
             <hr />
             <div className="meal-nutrition">
