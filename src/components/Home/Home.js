@@ -7,21 +7,23 @@ import styled from 'styled-components';
 
 const Home = props => {
     return (
-        <div className={props.className}>
+        <React.Fragment>
             <Header {...props} />
-            <h2>How it works</h2>
-            {/* <Slider {...props} /> */}
-            {/* <hr/> */}
-            <div className="InfoCard-container">
-                {props.infoCards.map((card, i) => <InfoCard key={`id${i}`} {...card} />)}
+            <div className={props.className}>
+                <h2>How it works</h2>
+                {/* <Slider {...props} /> */}
+                {/* <hr/> */}
+                <div className="InfoCard-container">
+                    {props.infoCards.map((card, i) => <InfoCard key={`id${i}`} {...card} />)}
+                </div>
+                <div className="img-overlay">
+                    <h2>What are people saying about Prep'd Fresh?</h2>
+                </div>
+                <div className="Testimonial-container">
+                    {props.testimonials.map(t => <Testimonial key={t.id} {...t} />)}
+                </div>
             </div>
-            <div className="img-overlay">
-                <h2>What are people saying about Prep'd Fresh?</h2>
-            </div>
-            <div className="Testimonial-container">
-                {props.testimonials.map(t => <Testimonial key={t.id} {...t} />)}
-            </div>
-        </div>
+        </React.Fragment>
     )
 };
 
