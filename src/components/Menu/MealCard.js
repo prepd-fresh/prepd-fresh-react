@@ -37,7 +37,9 @@ const MealCard = props => {
     const handleChange = key => e => mergeState({[key]: e.target.value})
 
     const handleQuantityChange = ({ target: { value } }) => mergeState({
-        quantity: (Number(value) < 1) ? 1 : Number(value)
+        quantity: (value !== 0 && value == false) 
+                    ? '' 
+                    : Math.abs(Number(value))
     })
 
     const toggle = key => () => mergeState({
@@ -184,6 +186,9 @@ export default styled(MealCard)`
 
     .meal-quantity-price input {
         width: 33%;
+        border: 1px solid grey;
+        border-radius: 3px;
+        max-width: 20px;
     }
 
     .meal-add-cart,
