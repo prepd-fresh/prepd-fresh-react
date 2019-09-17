@@ -17,6 +17,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     min-height: 100vh;
+    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+    font-family: 'Roboto', sans-serif;
   }
 
   body, html {
