@@ -36,11 +36,13 @@ const MealCard = props => {
 
     const handleChange = key => e => mergeState({[key]: e.target.value})
 
-    const handleQuantityChange = ({ target: { value } }) => mergeState({
-        quantity: (value !== 0 && value == false) 
-                    ? '' 
-                    : Math.abs(Number(value))
-    })
+    const handleQuantityChange = ({ target: { value } }) => {
+        let newValue = '';
+        if ( /^\d+$/.test(value) ) newValue = Math.abs(Number(value))
+        mergeState({
+            quantity: newValue
+        })
+    }
 
     const toggle = key => () => mergeState({
         [key]: !state[key]
@@ -66,38 +68,43 @@ const MealCard = props => {
                     <div className="meal-info-options">
                         <h3>{props.productName}</h3>
                         <p>{props.dek}</p>
-                        <label>
-                            <input 
-                                type="radio" 
-                                value="reg"
-                                onChange={handleChange('size')}
-                                checked={state.size === 'reg'}
-                                name={`${props.id}-size`} />
-                            Regular
-                        </label>
-                        <label>
-                            <input 
-                                type="radio" 
-                                value="lg"
-                                onChange={handleChange('size')}
-                                checked={state.size === 'lg'}
-                                name={`${props.id}-size`} />
-                            Large
-                        </label>
-                        {props.vOpt && (
-                            <label>
+                        <div className="options-container">
+                            <label htmlFor={`${props.id}-size-reg`} >
                                 <input 
-                                    type="checkbox"
-                                    onChange={toggle('isVeggie')} 
-                                    checked={state.isVeggie}/>
-                                Vegetarian
+                                    type="radio" 
+                                    value="reg"
+                                    onChange={handleChange('size')}
+                                    checked={state.size === 'reg'}
+                                    id={`${props.id}-size-reg`} />
+                                Regular
                             </label>
-                        )}
+                            <label htmlFor={`${props.id}-size-lg`}>
+                                <input 
+                                    type="radio" 
+                                    value="lg"
+                                    onChange={handleChange('size')}
+                                    checked={state.size === 'lg'}
+                                    id={`${props.id}-size-lg`} />
+                                Large
+                            </label>
+                            {props.vOpt && (
+                                <label htmlFor={`${props.id}-is-veggie`}>
+                                    <input 
+                                        id={`${props.id}-is-veggie`}
+                                        type="checkbox"
+                                        onChange={toggle('isVeggie')} 
+                                        checked={state.isVeggie}/>
+                                    Vegetarian
+                                </label>
+                            )}
+                        </div>
                     </div>
                     <hr/>
                     <div className="meal-quantity-price">
-                        <label>Quantity</label>
-                        <input type="number" 
+                        <label>Quantity&nbsp;</label>
+                        <input type="text" 
+                                pattern="[0-9]*" 
+                                placeholder="0"
                                 value={state.quantity} 
                                 onChange={handleQuantityChange} /> 
                         ${(sizeDetails.price * quantity).toFixed(2)}
@@ -146,6 +153,10 @@ export default styled(MealCard)`
         padding: 0 5px;
     }
 
+    .meal-info-options label:nth-child(3) {
+        margin-left: auto;
+    }
+
     & .meal-info-options p {
         font-size: 11px;
         font-style: italic;
@@ -153,8 +164,14 @@ export default styled(MealCard)`
         margin: 0 5px;
     }
 
+    .options-container {
+        display: flex;
+
+    }
+
     & label {
         font-size: 11px;
+        ${'' /* display: inline-block; */}
     }
 
     .top-row {
@@ -184,11 +201,18 @@ export default styled(MealCard)`
         text-align: center;
     }
 
+    .meal-quantity-price {
+        display: flex;
+        justify-content: flex-end;
+    }
+
     .meal-quantity-price input {
         width: 33%;
         border: 1px solid grey;
         border-radius: 3px;
-        max-width: 20px;
+        max-width: 30px;
+        margin-right: auto;
+        text-align: right;
     }
 
     .meal-add-cart,
