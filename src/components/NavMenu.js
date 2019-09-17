@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleCartVisibility } from '../actions';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,13 +9,17 @@ import logo from "../cropped-color_logo_transparent.png";
 
 const NavMenu = props => {
     const dispatch = useDispatch();
+    const cartIsVisible = useSelector(state => state.cartIsVisible);
     const handleCheckoutPanelToggle = () => dispatch(toggleCartVisibility());
+    const condHandleCheckoutPanelToggle = () => {
+        if (cartIsVisible) handleCheckoutPanelToggle()
+    }
     return (
         <div className={props.className}>
-            <Link to="/">
+            <Link to="/" onClick={condHandleCheckoutPanelToggle}>
                 <img className="logo" alt="logo" src={logo} />
             </Link>&nbsp;
-            <Link to="/meals/">
+            <Link to="/meals/" onClick={condHandleCheckoutPanelToggle}>
                 {/*<FontAwesomeIcon icon={faCarrot} size="lg" color="#F8951D" />*/}
                 {/* <FontAwesomeIcon icon={faBookOpen} size="lg" color="#F8951D" /> */}
                 Meals
