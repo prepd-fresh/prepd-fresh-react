@@ -209,7 +209,7 @@ export default styled(MealCard)`
 
     @media screen and (min-width: 1024px) {
         & {
-            height: 350px;
+            margin: 5px;
         }
     }
 `;
