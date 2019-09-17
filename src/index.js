@@ -9,6 +9,7 @@ import { Provider, useSelector } from 'react-redux';
 import prepdApp from './reducers';import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
   * {
     box-sizing: border-box;
   }
@@ -17,7 +18,6 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     min-height: 100vh;
-    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
     font-family: 'Roboto', sans-serif;
   }
 
