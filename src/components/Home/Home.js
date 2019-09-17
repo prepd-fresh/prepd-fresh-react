@@ -62,16 +62,17 @@ export default styled(Home)`
     .InfoCard-container {
         display: flex;
         flex-direction: column;
-        margin: 20px;
+        margin: 20px auto;
         flex-wrap: wrap;
-        max-width: 1024px;
+        max-width: 400px;
     }
 
     .Testimonial-container {
         display: flex;
-        margin: 80px 20px 20px 20px;
+        margin: 80px auto 20px auto;
         flex-direction: column;
         flex-wrap: wrap;
+        max-width: 400px;
     }
 
     .Slider-wrapper {
@@ -86,6 +87,7 @@ export default styled(Home)`
         .InfoCard-container {
             flex-direction: row;
             margin: 20px auto;
+            max-width: 1024px;
         }
 
         .Testimonial-container {
