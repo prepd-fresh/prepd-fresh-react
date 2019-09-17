@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
   * {
     box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
   }
   h1, h2, h3, h4, h5, h6, p {
     color: #3E444B;
