@@ -62,7 +62,7 @@ export default styled(Home)`
     .InfoCard-container {
         display: flex;
         flex-direction: column;
-        margin: 20px auto;
+        margin: 20px;
         flex-wrap: wrap;
         max-width: 1024px;
     }
@@ -85,12 +85,13 @@ export default styled(Home)`
 
         .InfoCard-container {
             flex-direction: row;
-            margin: 20px 40px;
+            margin: 20px auto;
         }
 
         .Testimonial-container {
             flex-direction: row;
-            margin: 80px 40px 20px 40px;
+            max-width: 1024px;
+            margin: 80px auto;
         }
         .img-overlay h2 {
             padding: 0 25%;
