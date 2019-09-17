@@ -49,6 +49,8 @@ export default styled(Menu)`
     }
 
     @media screen and (min-width: 1024px) {
+        max-width: 1024px;
+
         .MealCard-container {
             flex-direction: row;
         }
