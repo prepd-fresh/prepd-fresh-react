@@ -39,6 +39,7 @@ export default styled(Home)`
 
     .img-overlay {
         height: 150px;
+        width: 100%;
         background-image: linear-gradient(
             rgba(100, 100, 100, 0.45), 
             rgba(100, 100, 100, 0.45)
@@ -61,9 +62,9 @@ export default styled(Home)`
     .InfoCard-container {
         display: flex;
         flex-direction: column;
-        margin: 20px;
-        grid-row-gap: 40px;
+        margin: 20px auto;
         flex-wrap: wrap;
+        max-width: 1024px;
     }
 
     .Testimonial-container {
@@ -92,7 +93,7 @@ export default styled(Home)`
             margin: 80px 40px 20px 40px;
         }
         .img-overlay h2 {
-            padding: 25%;
+            padding: 0 25%;
             font-size: 34px;
             font-weight: 400;
         }

@@ -56,7 +56,7 @@ export default styled(App)`
 
   @media screen and (min-width: 1024px) {
     main > *{
-      width: 1024px;
+      ${'' /* width: 1024px; */}
     }
 
     .NavMenu {

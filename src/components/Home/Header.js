@@ -15,22 +15,22 @@ const Header = props => (
 
 export default styled(Header)`
 
-    
-    text-align: center;
-    background: linear-gradient(
-    rgba(100, 100, 100, 0.45), 
-    rgba(100, 100, 100, 0.45)
-    ), url('/img/${props => props.heroImageUrl}');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    height: 210px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    
+    && {
+        text-align: center;
+        background: linear-gradient(
+        rgba(100, 100, 100, 0.45), 
+        rgba(100, 100, 100, 0.45)
+        ), url('/img/${props => props.heroImageUrl}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        height: 210px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+    }
     
     .header-centered {
         flex: 1 1 100%;
