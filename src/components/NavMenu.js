@@ -24,7 +24,7 @@ const NavMenu = props => {
                 {/* <FontAwesomeIcon icon={faBookOpen} size="lg" color="#F8951D" /> */}
                 Meals
             </Link>&nbsp;
-            <button onClick={handleCheckoutPanelToggle}>
+            <button className="cartToggleBtn" onClick={handleCheckoutPanelToggle}>
                 <FontAwesomeIcon icon={faShoppingCart} size="lg" color="#F8951D" />
             </button>
         </div>
@@ -58,5 +58,19 @@ export default styled(NavMenu)`
     }
     & .logo {
         width: 30px;
+    }
+    .cartToggleBtn {
+        position: relative;
+        &::after {
+            content: '${props => props.cartItemCount}';
+            background-color: #F00;
+            color: #FFF;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            top: -5px;
+            right: -5px;
+            position: absolute;
+        }
     }
 `;

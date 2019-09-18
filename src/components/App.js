@@ -11,12 +11,13 @@ import styled from 'styled-components';
 
 const App = props => {
   const state = useSelector(state => state);
+  const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
 
   return (
     <BrowserRouter>
       <div className={props.className}>
-        <NavMenu />
+        <NavMenu cartItemCount={Object.keys(cart).length} />
         <main>
           <Switch>
             <Route 
