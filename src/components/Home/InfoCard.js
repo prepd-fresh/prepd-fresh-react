@@ -10,7 +10,7 @@ const InfoCard = props => (
 );
 
 export default styled(InfoCard)`
-    margin: 5px;
+    margin: 10px;
     .InfoCard-img {
         padding-top: 58%;
         width: 100%;

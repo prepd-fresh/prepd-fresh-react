@@ -18,7 +18,7 @@ export default styled(Testimonial)`
     text-align: center;
     background-color: #FFF;
     border-radius: 5px;
-    margin: 10px;
+    margin: 40px 10px;
     position: relative;
     z-index: 1;
     padding-top: 50px;
@@ -57,5 +57,6 @@ export default styled(Testimonial)`
     }
     @media screen and (min-width: 768px) {
         flex: 1 1 30%;
+        margin: 10px;
     }
 `;
