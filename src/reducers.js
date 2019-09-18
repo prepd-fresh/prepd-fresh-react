@@ -44,6 +44,8 @@ function cartIsVisible(state = false, action) {
     switch(action.type) {
         case TOGGLE_CART_VISIBILITY:
             return (!state)
+        case UPDATE_CART_STATUS:
+            return (action.status !== CartStatuses.DEFAULT)
         default:
             return state;
     }
@@ -85,8 +87,10 @@ function cart(state = {}, action) {
             const { [action.cartItemId]: remove, ...newState } = state;
             return newState;
         }
+        case UPDATE_CART_STATUS: 
+            return (action.status === CartStatuses.SUCCESS) ? {} : state;
         case UPDATE_CART_ITEM_QTY: {
-            if (Number(action.qty) || action.qty === '') {
+            if (Number(action.qty) || action.qty == false) {
                 const newState = {
                     ...state,
                     [action.id]: {

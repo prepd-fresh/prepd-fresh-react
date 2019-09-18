@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import { updateCartStatus, CartStatuses } from '../../actions';
+import styled from 'styled-components';
 
 const checkoutValidationSchema = yup.object().shape({
     firstName: yup.string()
@@ -37,8 +40,9 @@ const checkoutValidationSchema = yup.object().shape({
         .required('Required'),
 });
 
-const CheckoutForm = ({stripe, cartItems, totalPrice}) => {
-  const [complete, setComplete] = useState(false);
+const CheckoutForm = ({stripe, cartItems, totalPrice, className}) => {
+  const cartStatus = useSelector(state => state.cartStatus);
+  const dispatch = useDispatch();
 
   const handleSubmit = async ({
         firstName, 
@@ -48,6 +52,7 @@ const CheckoutForm = ({stripe, cartItems, totalPrice}) => {
         city,
         email
     }) => {
+        dispatch(updateCartStatus(CartStatuses.PROCESSING));
         let customerDetails = {
             name: `${firstName} ${lastName}`,
             address_line1: addressLine1,
@@ -77,50 +82,134 @@ const CheckoutForm = ({stripe, cartItems, totalPrice}) => {
         
         if (response.ok) {
             console.log(response.json())
-            setComplete(true);
+            dispatch(updateCartStatus(CartStatuses.SUCCESS));
+            setTimeout(
+                () => dispatch(updateCartStatus(CartStatuses.DEFAULT)),
+                3000
+            );
         }
     }
 
-  return (complete) 
-    ? <h1>Purchase Complete</h1>
-    : (
-      <div className="checkout">
-        <Formik 
-          initialValues={{
-              firstName: "",
-              lastName: "",
-              addressLine1: "",
-              addressLine2: "",
-              city: "",
-              phoneNumber: "",
-              email: "",
-          }}
-          validationSchema={checkoutValidationSchema}
-          onSubmit={handleSubmit}>
-          {({ errors, touched }) => (
-              <Form>
-                <p>Would you like to finish your purchase?</p>
-                <CardElement />
-                <Field name="firstName" placeholder="firstName" />
-                <ErrorMessage name="firstName" />
-                <Field name="lastName" placeholder="lastName" />
-                <ErrorMessage name="lastName" />
-                <Field name="addressLine1" placeholder="address line 1" />
-                <ErrorMessage name="addressLine1" />
-                <Field name="addressLine2" placeholder="address line 2" />
-                <ErrorMessage name="addressLine2" />
-                <Field name="city" placeholder="city" />
-                <ErrorMessage name="city" />
-                <Field name="phoneNumber" placeholder="phoneNumber" />
-                <ErrorMessage name="phoneNumber" />
-                <Field name="email" placeholder="email" />
-                <ErrorMessage name="email" />
-                <br/><button type="submit">Pay $</button>
-              </Form>
-            )}
-        </Formik>
+  return (
+        <div className={`checkout ${cartStatus} ${className}`}>
+            <div className="processing-message">
+                <h2>Processing order...</h2>
+            </div>
+            <div className="success-message">
+                <h2>Payment successful</h2>
+                <p>Thank you for ordering from Prep'd Fresh!</p>
+            </div>
+            {
+                (cartStatus !== CartStatuses.SUCCESS && totalPrice > 0) && (
+                    <div className="checkout-form">
+                        <Formik 
+                        initialValues={{
+                            firstName: "",
+                            lastName: "",
+                            addressLine1: "",
+                            addressLine2: "",
+                            city: "",
+                            phoneNumber: "",
+                            email: "",
+                        }}
+                        validationSchema={checkoutValidationSchema}
+                        onSubmit={handleSubmit}>
+                        {({ errors, touched }) => (
+                            <Form>
+                                <p>Would you like to finish your purchase?</p>
+                                <CardElement />
+                                <Field name="firstName" placeholder="firstName" />
+                                <ErrorMessage name="firstName" />
+                                <Field name="lastName" placeholder="lastName" />
+                                <ErrorMessage name="lastName" />
+                                <Field name="addressLine1" placeholder="address line 1" />
+                                <ErrorMessage name="addressLine1" />
+                                <Field name="addressLine2" placeholder="address line 2" />
+                                <ErrorMessage name="addressLine2" />
+                                <Field name="city" placeholder="city" />
+                                <ErrorMessage name="city" />
+                                <Field name="phoneNumber" placeholder="phoneNumber" />
+                                <ErrorMessage name="phoneNumber" />
+                                <Field name="email" placeholder="email" />
+                                <ErrorMessage name="email" />
+                                <br/><button type="submit">Pay $</button>
+                            </Form>
+                            )}
+                        </Formik>
+                    </div>
+                )
+            }
       </div>
     );
 }
 
-export default injectStripe(CheckoutForm);
+export default styled(injectStripe(CheckoutForm))`
+    position: relative;
+    height: 500px;
+    width: 100%;
+    
+    .checkout-form, 
+    .processing-message, 
+    .success-message {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    
+    &.DEFAULT {
+        .checkout-form {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s linear;
+        }
+        .processing-message {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 0.2s, opacity 0.2s linear;
+        }
+        .success-message {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 0.2s, opacity 0.2s linear;
+        }
+    }
+    
+    &.PROCESSING {
+        .checkout-form {
+            visibility: hidden;
+            opacity: 0;
+            ${'' /* transition: visibility 0s 0.2s, opacity 0.2s linear; */}
+        }
+        .processing-message {
+            visibility: visible;
+            opacity: 1;
+            ${'' /* transition: opacity 0.2s linear; */}
+        }
+        .success-message {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 0.2s, opacity 0.2s linear;
+        }
+    }
+    
+    &.SUCCESS {
+        .checkout-form {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 0.2s, opacity 0.2s linear;
+        }
+        .processing-message {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 0.2s, opacity 0.2s linear;
+        }
+        .success-message {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s linear;
+            h2, p {
+                color: #23B47E;
+            }
+        }
+    }
+`;
