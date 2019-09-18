@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Cart = ({className, cartItems}) => (
     <div className={"Cart " + className}>
         {Object.keys(cartItems)
+                .sort()
                 .map(itemId => (
                     <CartItem 
                         key={itemId} 
