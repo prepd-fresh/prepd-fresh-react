@@ -39,7 +39,7 @@ const checkoutValidationSchema = yup.object().shape({
         .required('Required'),
 });
 
-const CheckoutForm = ({stripe, cartItems, totalPrice, className}) => {
+const CheckoutForm = ({stripe, cartItems, totalPrice, className, resetScroll}) => {
   const cartStatus = useSelector(state => state.cartStatus);
   const dispatch = useDispatch();
 
@@ -52,6 +52,7 @@ const CheckoutForm = ({stripe, cartItems, totalPrice, className}) => {
         email
     }) => {
         dispatch(updateCartStatus(CartStatuses.PROCESSING));
+
         let customerDetails = {
             name: `${firstName} ${lastName}`,
             address_line1: addressLine1,
@@ -83,7 +84,10 @@ const CheckoutForm = ({stripe, cartItems, totalPrice, className}) => {
             console.log(response.json())
             dispatch(updateCartStatus(CartStatuses.SUCCESS));
             setTimeout(
-                () => dispatch(updateCartStatus(CartStatuses.DEFAULT)),
+                () => {
+                    dispatch(updateCartStatus(CartStatuses.DEFAULT));
+                    resetScroll();
+                },
                 3000
             );
         }
