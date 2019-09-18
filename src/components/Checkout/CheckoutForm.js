@@ -20,7 +20,6 @@ const checkoutValidationSchema = yup.object().shape({
         .min(2, 'Too Short!')
         .max(50, 'Too Long!'),
     addressLine2: yup.string()
-        .required('Required')
         .min(1, 'Too Short!')
         .max(50, 'Too Long!'),
     city: yup.string()
@@ -115,25 +114,38 @@ const CheckoutForm = ({stripe, cartItems, totalPrice, className}) => {
                         validationSchema={checkoutValidationSchema}
                         onSubmit={handleSubmit}>
                         {({ errors, touched }) => (
-                            <Form>
+                            <React.Fragment>
                                 <p>Would you like to finish your purchase?</p>
-                                <CardElement />
-                                <Field name="firstName" placeholder="firstName" />
-                                <ErrorMessage name="firstName" />
-                                <Field name="lastName" placeholder="lastName" />
-                                <ErrorMessage name="lastName" />
-                                <Field name="addressLine1" placeholder="address line 1" />
-                                <ErrorMessage name="addressLine1" />
-                                <Field name="addressLine2" placeholder="address line 2" />
-                                <ErrorMessage name="addressLine2" />
-                                <Field name="city" placeholder="city" />
-                                <ErrorMessage name="city" />
-                                <Field name="phoneNumber" placeholder="phoneNumber" />
-                                <ErrorMessage name="phoneNumber" />
-                                <Field name="email" placeholder="email" />
-                                <ErrorMessage name="email" />
-                                <br/><button type="submit">Pay $</button>
-                            </Form>
+                                <Form>
+                                    <CardElement 
+                                        className="card-element"
+                                        style={{
+                                            base: {
+                                                "::placeholder": {
+                                                    color: "#AAA",
+                                                    fontSize: "16px",
+                                                    fontWeight: 100
+                                                }
+                                            }
+                                        }} />
+                                    <Field name="firstName" placeholder="First name" />
+                                    <ErrorMessage name="firstName" />
+                                    <Field name="lastName" placeholder="Last name" />
+                                    <ErrorMessage name="lastName" />
+                                    <Field name="addressLine1" placeholder="Address line 1" />
+                                    <ErrorMessage name="addressLine1" />
+                                    <Field name="addressLine2" placeholder="Address line 2*" />
+                                    <ErrorMessage name="addressLine2" />
+                                    <Field name="city" placeholder="City" />
+                                    <ErrorMessage name="city" />
+                                    <Field name="phoneNumber" placeholder="Phone number" />
+                                    <ErrorMessage name="phoneNumber" />
+                                    <Field name="email" placeholder="Email" />
+                                    <ErrorMessage name="email" />
+                                    <p>*optional</p>
+                                    <br/><button type="submit">Pay ${totalPrice}</button>
+                                </Form>
+                            </React.Fragment>
                             )}
                         </Formik>
                     </div>
@@ -148,6 +160,54 @@ export default styled(injectStripe(CheckoutForm))`
     height: 500px;
     width: 100%;
     
+    form {
+        &> input, &> .card-element {
+            background-color: white;
+            font-family: 'Roboto', sans-serif;
+            border: none;
+            color: #3E444B;
+            font-size: 16px;
+            font-weight: 300;
+            border-radius: 3px;
+            margin: 5px 5px 0 0;
+            padding: 5px;
+            width: 100%;
+        }
+        &> input, &> .card-element {
+            ${'' /* &::placeholder {
+                color: grey;
+                font-weight: 100;
+            } */}
+            &::-webkit-input-placeholder { /* Edge */
+               color: #AAA;
+               font-weight: 100;
+            }
+
+            &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: #AAA;
+                font-weight: 100;
+            }
+
+            &::placeholder {
+                color: #AAA;
+                font-weight: 100;
+            }
+        }
+        p {
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+        }
+        &> button {
+            background: #23B47E;
+            border: none;
+            color: white;
+            border-radius: 2px;
+            width: 100%;
+            height: 30px;
+            margin-top: 10px;
+        }
+    }
     .checkout-form, 
     .processing-message, 
     .success-message {
