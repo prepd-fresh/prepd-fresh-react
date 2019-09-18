@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from './CheckoutForm';
@@ -6,20 +6,21 @@ import styled from 'styled-components';
 import Cart from './Cart';
 
 const Checkout = ({cartIsVisible, className}) => {
-    const cartItems = useSelector(state => ({...state.cart}))
+    const checkoutRef = useRef(null);
+    const cartItems = useSelector(state => ({...state.cart}));
     const totalPrice = Object.keys(cartItems).reduce(
         (total, itemId) => (
             ((cartItems[itemId].itemPrice * 100 * cartItems[itemId].qty) + (total * 100)) / 100
         ),
         0
     )
+    const resetScroll = () => checkoutRef.current.scrollTo(0, 0);
     return (
         // This is the test private for Dustin's Stripe account. TODO: Change to Ben's
         <StripeProvider apiKey="pk_test_dxJRiJo1wDpI8NWpKyTy9WII00GF5Wl5rQ">
-            <div className={"Checkout " +
-                            (cartIsVisible 
-                                ? "slide-in " 
-                                : "slide-out ") 
+            <div ref={checkoutRef}
+                className={"Checkout " +
+                            (cartIsVisible ? "slide-in " : "slide-out ") 
                             + className}>
                 <h2>Checkout</h2>
                 <Cart cartItems={cartItems} />
@@ -28,9 +29,7 @@ const Checkout = ({cartIsVisible, className}) => {
                 </div>
                 <p>*Meals are delivered every Sunday. The next delivery date is Sunday, July 28. Order by 11:59pm Friday, July 26 to receive your delivery this Sunday.</p>
                 <Elements>
-                    <CheckoutForm 
-                        cartItems={cartItems} 
-                        totalPrice={totalPrice} />
+                    <CheckoutForm {...{cartItems, totalPrice, resetScroll}} />
                 </Elements>
             </div>
         </StripeProvider>
