@@ -17,7 +17,10 @@ const App = props => {
   return (
     <BrowserRouter>
       <div className={props.className}>
-        <NavMenu cartItemCount={Object.keys(cart).length} />
+        <NavMenu cartItemCount={Object.values(cart).reduce(
+          (total, val) => total + val.qty,
+          0
+        )} />
         <main>
           <Switch>
             <Route 
