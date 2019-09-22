@@ -6,6 +6,13 @@ import { CardElement, injectStripe } from 'react-stripe-elements';
 import { updateCartStatus, CartStatuses } from '../../actions';
 import styled from 'styled-components';
 
+const Checkbox = ({ field, type, checked }) => (
+    <label>
+    <input {...field} type={type} checked={checked} />
+    {field.label}
+    </label>
+);
+
 const checkoutValidationSchema = yup.object().shape({
     firstName: yup.string()
         .required('Required')
@@ -15,11 +22,18 @@ const checkoutValidationSchema = yup.object().shape({
         .required('Required')
         .min(2, 'Too Short!')
         .max(50, 'Too Long!'),
-    addressLine1: yup.string()
+    billingAddressLine1: yup.string()
         .required('Required')
         .min(2, 'Too Short!')
         .max(50, 'Too Long!'),
-    addressLine2: yup.string()
+    billingAddressLine2: yup.string()
+        .min(1, 'Too Short!')
+        .max(50, 'Too Long!'),
+    deliveryAddressLine1: yup.string()
+        .required('Required')
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!'),
+    deliveryAddressLine2: yup.string()
         .min(1, 'Too Short!')
         .max(50, 'Too Long!'),
     city: yup.string()
@@ -109,15 +123,19 @@ const CheckoutForm = ({stripe, cartItems, totalPrice, className, resetScroll}) =
                         initialValues={{
                             firstName: "",
                             lastName: "",
-                            addressLine1: "",
-                            addressLine2: "",
-                            city: "",
+                            billingAddressLine1: "",
+                            billingAddressLine2: "",
+                            billingAddressCity: "",
+                            useBillingAddressForDelivery: false,
+                            deliveryAddressLine1: "",
+                            deliveryAddressLine2: "",
+                            deliveryAddressCity: "",
                             phoneNumber: "",
                             email: "",
                         }}
                         validationSchema={checkoutValidationSchema}
                         onSubmit={handleSubmit}>
-                        {({ errors, touched }) => (
+                        {({ values, setFieldValue }) => (
                             <React.Fragment>
                                 <p>Would you like to finish your purchase?</p>
                                 <Form>
@@ -136,17 +154,72 @@ const CheckoutForm = ({stripe, cartItems, totalPrice, className, resetScroll}) =
                                     <ErrorMessage name="firstName" />
                                     <Field name="lastName" placeholder="Last name" />
                                     <ErrorMessage name="lastName" />
-                                    <Field name="addressLine1" placeholder="Address line 1" />
-                                    <ErrorMessage name="addressLine1" />
-                                    <Field name="addressLine2" placeholder="Address line 2*" />
-                                    <ErrorMessage name="addressLine2" />
-                                    <Field name="city" placeholder="City" />
-                                    <ErrorMessage name="city" />
+                                    <fieldset>
+                                        <legend>Billing Address</legend>
+                                        <Field name="billingAddressLine1" placeholder="Billing address line 1" />
+                                        <ErrorMessage name="billingAddressLine1" />
+                                        <Field name="billingAddressLine2" placeholder="Billing address line 2 (Optional)" />
+                                        <ErrorMessage name="billingAddressLine2" />
+                                        <Field name="billingAddressCity" placeholder="Billing address city" />
+                                        <ErrorMessage name="billingAddressCity" />
+                                    </fieldset>
+                                    {
+                                        (!!values.billingAddressLine1.length && !!values.billingAddressCity) && (
+                                            <React.Fragment>
+                                                <Field 
+                                                type="checkbox" 
+                                                onClick={() => {
+                                                    if (!values.useBillingAddressForDelivery) {
+                                                        setFieldValue(
+                                                            'deliveryAddressLine1',
+                                                            values.billingAddressLine1
+                                                        );
+                                                        setFieldValue(
+                                                            'deliveryAddressLine2',
+                                                            values.billingAddressLine2
+                                                        );
+                                                        setFieldValue(
+                                                            'deliveryAddressCity',
+                                                            values.billingAddressCity
+                                                        );
+                                                    } else {
+                                                        setFieldValue(
+                                                            'deliveryAddressLine1',
+                                                            '',
+                                                            false
+                                                        );
+                                                        setFieldValue(
+                                                            'deliveryAddressLine2',
+                                                            '',
+                                                            false
+                                                        );
+                                                        setFieldValue(
+                                                            'deliveryAddressCity',
+                                                            '',
+                                                            false
+                                                        );
+                                                    }
+                                                }} 
+                                                name="useBillingAddressForDelivery" 
+                                                label="Use billing address for delivery" 
+                                                checked={values.useBillingAddressForDelivery} /> 
+                                                Use billing address for delivery
+                                            </React.Fragment>
+                                        )
+                                    }
+                                    <fieldset>
+                                        <legend>Delivery Address</legend>
+                                        <Field name="deliveryAddressLine1" placeholder="Delivery address line 1" />
+                                        <ErrorMessage name="deliveryAddressLine1" />
+                                        <Field name="deliveryAddressLine2" placeholder="Delivery address line 2 (Optional)" />
+                                        <ErrorMessage name="deliveryAddressLine2" />
+                                        <Field name="deliveryAddressCity" placeholder="Delivery address city" />
+                                        <ErrorMessage name="deliveryAddressCity" />
+                                    </fieldset>
                                     <Field name="phoneNumber" placeholder="Phone number" />
                                     <ErrorMessage name="phoneNumber" />
                                     <Field name="email" placeholder="Email" />
                                     <ErrorMessage name="email" />
-                                    <p>*optional</p>
                                     <br/><button type="submit">Pay ${totalPrice}</button>
                                 </Form>
                             </React.Fragment>
@@ -165,7 +238,15 @@ export default styled(injectStripe(CheckoutForm))`
     width: 100%;
     
     form {
-        &> input, &> .card-element {
+        fieldset {
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 1px solid #CCC;
+        }
+        legend {
+            color: #AAA;
+        }
+        & input, & .card-element {
             background-color: white;
             font-family: 'Roboto', sans-serif;
             border: none;
@@ -176,8 +257,11 @@ export default styled(injectStripe(CheckoutForm))`
             margin: 5px 5px 0 0;
             padding: 5px;
             width: 100%;
+            &[type="checkbox"]{
+                width: 30px;
+            }
         }
-        &> input, &> .card-element {
+        & input, & .card-element {
             ${'' /* &::placeholder {
                 color: grey;
                 font-weight: 100;
