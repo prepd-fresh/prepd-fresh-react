@@ -24,13 +24,6 @@ function productSizeVariants(state = {}, action) {
     }
 }
 
-function productNutrition(state = {}, action) {
-    switch(action.type) {
-        default:
-            return state;
-    }
-}
-
 function cartStatus(state = DEFAULT, action) {
     switch(action.type) {
         case UPDATE_CART_STATUS: 
@@ -60,7 +53,6 @@ function cart(state = {}, action) {
                 .filter(cartItem => (
                     aCartItem.productId === cartItem.productId
                     && aCartItem.size === cartItem.size
-                    && aCartItem.veggie === cartItem.veggie
                 ))
             if (similarExistingItem.length) {
                 return {
@@ -148,7 +140,6 @@ function sliderImgUrl(state = '', action) {
 const prepdApp = combineReducers({
     products,
     productSizeVariants,
-    productNutrition,
     cartIsVisible,
     cartStatus,
     cart,

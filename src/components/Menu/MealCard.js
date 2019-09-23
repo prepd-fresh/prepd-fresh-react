@@ -5,29 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
-const MealCard = props => {
+const MealCard = ({veggie, ...props}) => {
 
     const [state, setState] = useState({
         size: 'reg',
         quantity: 1,
-        isVeggie: false
     });
 
     const { id } = props;
-    const { size, quantity, isVeggie } = state;
+    const { size, quantity } = state;
     const sizeDetails = Object.keys(props.sizeVariants)
         .map(key => props.sizeVariants[key])
         .filter(sizeVariant => (
             sizeVariant.productId === id
             && sizeVariant.size === size
         ))[0];
-    const nutritionDetails = Object.keys(props.nutrition)
-        .map(key => props.nutrition[key])
-        .filter(nutritionObj => (
-            nutritionObj.productSizeVariantId === sizeDetails.id
-            && nutritionObj.veggie === isVeggie
-        ))[0];
-    const { cal, car, fat, pro } = nutritionDetails.nutrition;
+    const { cal, car, fat, pro } =  sizeDetails.nutrition;
 
     const mergeState = newState => setState({
         ...state,
@@ -54,7 +47,7 @@ const MealCard = props => {
         name: props.productName,
         itemPrice: sizeDetails.price,
         size: state.size,
-        veggie: state.isVeggie,
+        veggie: veggie,
         qty: state.quantity
     }))
 
@@ -87,16 +80,7 @@ const MealCard = props => {
                                     id={`${props.id}-size-lg`} />
                                 Large
                             </label>
-                            {props.vOpt && (
-                                <label htmlFor={`${props.id}-is-veggie`}>
-                                    <input 
-                                        id={`${props.id}-is-veggie`}
-                                        type="checkbox"
-                                        onChange={toggle('isVeggie')} 
-                                        checked={state.isVeggie}/>
-                                    Vegetarian
-                                </label>
-                            )}
+                            {(veggie) && <p>Vegetarian</p>}
                         </div>
                     </div>
                     <hr/>
@@ -153,8 +137,10 @@ export default styled(MealCard)`
         padding: 0 5px;
     }
 
-    .meal-info-options label:nth-child(3) {
-        margin-left: auto;
+    .meal-info-options p:last-child {
+        color: #24b47e;
+        margin: 0 5px 0 auto;
+        line-height: 19px;
     }
 
     & .meal-info-options p {
@@ -164,6 +150,10 @@ export default styled(MealCard)`
         margin: 0 5px;
     }
 
+    .meal-info-options input[type="radio"] {
+        vertical-align: middle;
+    }
+
     .options-container {
         display: flex;
 
@@ -171,6 +161,8 @@ export default styled(MealCard)`
 
     & label {
         font-size: 11px;
+        vertical-align: middle;
+        line-height: 19px;
         ${'' /* display: inline-block; */}
     }
 

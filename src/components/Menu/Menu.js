@@ -5,17 +5,14 @@ import styled from 'styled-components';
 
 const isProductType = desiredType => product => desiredType === product.type
 const toProductByIdFrom = productsObj => productId => productsObj[productId] 
-const toMealCardFromMealWith = (sizeVariants, nutrition) => meal => (
-    <MealCard key={meal.id} {...{...meal, sizeVariants, nutrition}} />
+const toMealCardFromMealWith = sizeVariants => meal => (
+    <MealCard key={meal.id} {...{...meal, sizeVariants}} />
 )
 
 const Menu = props => {
     const products = useSelector(state => state.products);
     const productSizeVariants = useSelector(state => ({
         ...state.productSizeVariants
-    }));
-    const productNutrition = useSelector(state => ({
-        ...state.productNutrition
     }));
     return (
         <div className={props.className}>
@@ -26,10 +23,7 @@ const Menu = props => {
                 {Object.keys(products)
                         .map(toProductByIdFrom(products))
                         .filter(isProductType('meal'))
-                        .map(toMealCardFromMealWith(
-                            productSizeVariants, 
-                            productNutrition
-                        ))}
+                        .map(toMealCardFromMealWith(productSizeVariants))}
             </div>
         </div>
     );
@@ -46,6 +40,8 @@ export default styled(Menu)`
         flex-direction: column;
         align-items: center;
         margin: 0;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     @media screen and (min-width: 1024px) {

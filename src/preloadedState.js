@@ -45,7 +45,7 @@ const preloadedState = {
             id: 'fdga78df6gasd',
             productName: 'Pesto Chicken',
             dek: 'This is a brief description of the menu item, yum!',
-            vOpt: false,
+            veggie: false,
             imageUrl: 'meal_1.jpg',
         },
         sd79fsd89afsd: {
@@ -53,7 +53,7 @@ const preloadedState = {
             id: 'sd79fsd89afsd',
             productName: 'Broccoli Salad',
             dek: 'This is a brief description of the menu item, yum!',
-            vOpt: true,
+            veggie: false,
             imageUrl: 'meal_2.jpg',
         },
         a978df6g7869agasd: {
@@ -61,7 +61,15 @@ const preloadedState = {
             id: 'a978df6g7869agasd',
             productName: 'Something Else',
             dek: 'This is a brief description of the menu item, yum!',
-            vOpt: true,
+            veggie: false,
+            imageUrl: 'meal_3.jpg',
+        },
+        v6789bnb87nm6vbnm: {
+            type: 'meal',
+            id: 'v6789bnb87nm6vbnm',
+            productName: 'Vegetarian Dish',
+            dek: 'This is a brief description of the menu item, yum!',
+            veggie: true,
             imageUrl: 'meal_3.jpg',
         },
     },
@@ -71,43 +79,66 @@ const preloadedState = {
             productId: "fdga78df6gasd",
             size: "lg",
             price: 7.99,
+            nutrition: {
+                cal: 400,
+                car: 55,
+                fat: 24,
+                pro: 25
+            },
         },
         o97sdg09ads09ds: {
             id: "o97sdg09ads09ds",
             productId: "fdga78df6gasd",
             size: "reg",
             price: 6.99,
+            nutrition: {
+                cal: 300,
+                car: 46,
+                fat: 22,
+                pro: 24
+            },
         },
         sdf879asd8gasd87: {
             id: "sdf879asd8gasd87",
             productId: "sd79fsd89afsd",
             size: "lg",
             price: 7.99,
+            nutrition: {
+                cal: 400,
+                car: 55,
+                fat: 24,
+                pro: 25
+            },
         },
         iou3423oi4uo23i4: {
             id: "iou3423oi4uo23i4",
             productId: "sd79fsd89afsd",
             size: "reg",
             price: 6.99,
+            nutrition: {
+                cal: 300,
+                car: 46,
+                fat: 22,
+                pro: 24
+            },
         },
         poi2u345oiu34255: {
             id: "poi2u345oiu34255",
             productId: "a978df6g7869agasd",
             size: "lg",
             price: 7.99,
+            nutrition: {
+                cal: 400,
+                car: 55,
+                fat: 24,
+                pro: 25
+            },
         },
         asd9bn74bn7456bn: {
             id: "asd9bn74bn7456bn",
             productId: "a978df6g7869agasd",
             size: "reg",
             price: 6.99,
-        },
-    },
-    productNutrition: {
-        ds897g98dsga8901: {
-            id: "ds897g98dsga8901",
-            productSizeVariantId: "erty78df6gasd",
-            veggie: false,
             nutrition: {
                 cal: 300,
                 car: 46,
@@ -115,125 +146,28 @@ const preloadedState = {
                 pro: 24
             },
         },
-        ds897g98dsga8902: {
-            id: "ds897g98dsga8902",
-            productSizeVariantId: "o97sdg09ads09ds",
-            veggie: false,
+        qw567r6e7werq57r: {
+            id: "qw567r6e7werq57r",
+            productId: "v6789bnb87nm6vbnm",
+            size: "lg",
+            price: 7.99,
             nutrition: {
-                cal: 270,
-                car: 44,
-                fat: 20,
-                pro: 22   
+                cal: 400,
+                car: 55,
+                fat: 24,
+                pro: 25
             },
         },
-        ds897g98dsga8903: {
-            id: "ds897g98dsga8903",
-            productSizeVariantId: "sdf879asd8gasd87",
-            veggie: false,
+        zz9xc8v7xz6vxcz786: {
+            id: "zz9xc8v7xz6vxcz786",
+            productId: "v6789bnb87nm6vbnm",
+            size: "reg",
+            price: 6.99,
             nutrition: {
                 cal: 300,
                 car: 46,
                 fat: 22,
                 pro: 24
-            },
-        },
-        ds897g98dsga8904: {
-            id: "ds897g98dsga8904",
-            productSizeVariantId: "iou3423oi4uo23i4",
-            veggie: false,
-            nutrition: {
-                cal: 270,
-                car: 44,
-                fat: 20,
-                pro: 22
-            },
-        },
-        ds897g98dsga8905: {
-            id: "ds897g98dsga8905",
-            productSizeVariantId: "poi2u345oiu34255",
-            veggie: false,
-            nutrition: {
-                cal: 300,
-                car: 46,
-                fat: 22,
-                pro: 24     
-            },
-        },
-        ds897g98dsga8906: {
-            id: "ds897g98dsga8906",
-            productSizeVariantId: "asd9bn74bn7456bn",
-            veggie: false,
-            nutrition: {
-                cal: 270,
-                car: 44,
-                fat: 20,
-                pro: 22     
-            },
-        },
-        ds897g98dsga8907: {
-            id: "ds897g98dsga8907",
-            productSizeVariantId: "erty78df6gasd",
-            veggie: true,
-            nutrition: {
-                cal: 290,
-                car: 46,
-                fat: 22,
-                pro: 24
-            },
-        },
-        ds897g98dsga8908: {
-            id: "ds897g98dsga8908",
-            productSizeVariantId: "o97sdg09ads09ds",
-            veggie: true,
-            nutrition: {
-                cal: 260,
-                car: 44,
-                fat: 20,
-                pro: 22   
-            },
-        },
-        ds897g98dsga8909: {
-            id: "ds897g98dsga8909",
-            productSizeVariantId: "sdf879asd8gasd87",
-            veggie: true,
-            nutrition: {
-                cal: 290,
-                car: 46,
-                fat: 22,
-                pro: 24
-            },
-        },
-        ds897g98dsga8910: {
-            id: "ds897g98dsga8910",
-            productSizeVariantId: "iou3423oi4uo23i4",
-            veggie: true,
-            nutrition: {
-                cal: 260,
-                car: 44,
-                fat: 20,
-                pro: 22
-            },
-        },
-        ds897g98dsga8911: {
-            id: "ds897g98dsga8911",
-            productSizeVariantId: "poi2u345oiu34255",
-            veggie: true,
-            nutrition: {
-                cal: 290,
-                car: 46,
-                fat: 22,
-                pro: 24     
-            },
-        },
-        ds897g98dsga8912: {
-            id: "ds897g98dsga8912",
-            productSizeVariantId: "asd9bn74bn7456bn",
-            veggie: true,
-            nutrition: {
-                cal: 260,
-                car: 44,
-                fat: 20,
-                pro: 22     
             },
         },
     },
