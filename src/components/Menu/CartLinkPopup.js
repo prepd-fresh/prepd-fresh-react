@@ -9,8 +9,8 @@ const CartLinkPopup = ({qtyOfItems, total, className, openCart, ...props}) => (
             {`${qtyOfItems} ${(qtyOfItems > 1) ? 'items' : 'item'} | $${total}`}
         </div>
         <div>
-            View Cart 
-            <FontAwesomeIcon icon={faShoppingCart} size="lg" color="#FFF"/>
+            View Cart&nbsp;&nbsp;
+            <FontAwesomeIcon icon={faShoppingCart} size="1x" color="#FFF"/>
         </div>
     </div>
 );
