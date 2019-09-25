@@ -41,7 +41,7 @@ export default styled(Checkout)`
     && {
         width: 320px;
         box-sizing: border-box;
-        padding: 60px 20px 20px 20px;
+        padding: 60px 20px 200px 20px;
         position: fixed;
         overflow-y: scroll;
         pointer-events: auto;

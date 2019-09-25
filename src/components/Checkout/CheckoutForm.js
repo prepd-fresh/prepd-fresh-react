@@ -29,6 +29,10 @@ const checkoutValidationSchema = yup.object().shape({
     billingAddressLine2: yup.string()
         .min(1, 'Too Short!')
         .max(50, 'Too Long!'),
+    billingAddressCity: yup.string()
+        .required('Required')
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!'),
     deliveryAddressLine1: yup.string()
         .required('Required')
         .min(2, 'Too Short!')
@@ -36,7 +40,7 @@ const checkoutValidationSchema = yup.object().shape({
     deliveryAddressLine2: yup.string()
         .min(1, 'Too Short!')
         .max(50, 'Too Long!'),
-    city: yup.string()
+    deliveryAddressCity: yup.string()
         .required('Required')
         .min(2, 'Too Short!')
         .max(50, 'Too Long!'),
@@ -51,6 +55,8 @@ const checkoutValidationSchema = yup.object().shape({
     email: yup.string()
         .email('Invalid email')
         .required('Required'),
+    orderNotes: yup.string()    
+        .max(150, 'Too Long!'),
 });
 
 const CheckoutForm = ({stripe, cartItems, totalPrice, className, resetScroll}) => {
@@ -132,6 +138,7 @@ const CheckoutForm = ({stripe, cartItems, totalPrice, className, resetScroll}) =
                             deliveryAddressCity: "",
                             phoneNumber: "",
                             email: "",
+                            orderNotes: ""
                         }}
                         validationSchema={checkoutValidationSchema}
                         onSubmit={handleSubmit}>
@@ -220,6 +227,8 @@ const CheckoutForm = ({stripe, cartItems, totalPrice, className, resetScroll}) =
                                     <ErrorMessage name="phoneNumber" />
                                     <Field name="email" placeholder="Email" />
                                     <ErrorMessage name="email" />
+                                    <Field name="orderNotes" placeholder="Order notes (Optional)" />
+                                    <ErrorMessage name="orderNotes" />
                                     <br/><button type="submit">Pay ${totalPrice}</button>
                                 </Form>
                             </React.Fragment>
