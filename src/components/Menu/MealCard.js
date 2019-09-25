@@ -228,6 +228,7 @@ export default styled(MealCard)`
         width: 100%;
         height: 30px;
         margin-top: 10px;
+        cursor: pointer;
     }
 
     hr {
