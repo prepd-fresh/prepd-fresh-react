@@ -172,33 +172,33 @@ const preloadedState = {
         },
     },
     cart: {
-        oisdfa01: {
-            id: "oisdfa01",
-            productId: "fdga78df6gasd",
-            name: "Chicken Pesto",
-            itemPrice: 4.99,
-            size: "regular",
-            veggie: false,
-            qty: 1
-        },
-        oisdfa02: {
-            id: "oisdfa02",
-            productId: "asdf78df6gasd",
-            name: "Broccoli Salad",
-            itemPrice: 7.99,
-            size: "large",
-            veggie: true,
-            qty: 4
-        },
-        oisdfa03: {
-            id: "oisdfa03",
-            productId: "erty78df6gasd",
-            name: "Something Else",
-            itemPrice: 7.99,
-            size: "large",
-            veggie: true,
-            qty: 2
-        },
+        // oisdfa01: {
+        //     id: "oisdfa01",
+        //     productId: "fdga78df6gasd",
+        //     name: "Chicken Pesto",
+        //     itemPrice: 4.99,
+        //     size: "regular",
+        //     veggie: false,
+        //     qty: 1
+        // },
+        // oisdfa02: {
+        //     id: "oisdfa02",
+        //     productId: "asdf78df6gasd",
+        //     name: "Broccoli Salad",
+        //     itemPrice: 7.99,
+        //     size: "large",
+        //     veggie: true,
+        //     qty: 4
+        // },
+        // oisdfa03: {
+        //     id: "oisdfa03",
+        //     productId: "erty78df6gasd",
+        //     name: "Something Else",
+        //     itemPrice: 7.99,
+        //     size: "large",
+        //     veggie: true,
+        //     qty: 2
+        // },
     }
 };
 
