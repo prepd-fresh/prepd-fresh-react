@@ -1,7 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import MealCard from './MealCard';
 import styled from 'styled-components';
+import { toggleCartVisibility } from '../../actions';
+import CartLinkPopup from './CartLinkPopup';
 
 const isProductType = desiredType => product => desiredType === product.type
 const toProductByIdFrom = productsObj => productId => productsObj[productId] 
@@ -10,10 +12,28 @@ const toMealCardFromMealWith = sizeVariants => meal => (
 )
 
 const Menu = props => {
+    const dispatch = useDispatch();
     const products = useSelector(state => state.products);
+    const cart = useSelector(state => state.cart);
+    const cartIsNotVisible = !useSelector(state => state.cartIsVisible);
     const productSizeVariants = useSelector(state => ({
         ...state.productSizeVariants
     }));
+
+    const cartArr = Object.values(cart);
+    const qtyOfCartItems = cartArr.reduce(
+        (total, item) => total + item.qty,
+        0
+    );
+    const totalPrice = cartArr.reduce(
+        (total, item) => total + (item.itemPrice * item.qty * 100), 0
+    ) / 100;
+    const cartItemsExist = !!cartArr.length;
+
+    const openCart = () => { 
+        if (cartIsNotVisible) dispatch(toggleCartVisibility())
+    };
+
     return (
         <div className={props.className}>
             <h2>Menu</h2>
@@ -25,6 +45,11 @@ const Menu = props => {
                         .filter(isProductType('meal'))
                         .map(toMealCardFromMealWith(productSizeVariants))}
             </div>
+            {cartItemsExist && 
+            <CartLinkPopup 
+                qtyOfItems={qtyOfCartItems} 
+                total={totalPrice}
+                openCart={openCart} />}
         </div>
     );
 };
