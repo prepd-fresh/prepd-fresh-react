@@ -27,7 +27,7 @@ const checkoutValidationSchema = yup.object().shape({
     .max(50, "Too Long!"),
   deliveryAddressLine1: yup
     .string()
-    .required("Required")
+    // .required("Required")
     .min(2, "Too Short!")
     .max(50, "Too Long!"),
   deliveryAddressLine2: yup
@@ -36,7 +36,7 @@ const checkoutValidationSchema = yup.object().shape({
     .max(50, "Too Long!"),
   deliveryAddressCity: yup
     .string()
-    .required("Required")
+    // .required("Required")
     .min(2, "Too Short!")
     .max(50, "Too Long!"),
   phoneNumber: yup
