@@ -98,6 +98,11 @@ const CheckoutForm = ({ className, stripe }) => {
         setTimeout(() => {
           sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
         }, 3000);
+      } else {
+        sendMessageToRN(updateCartStatus(CartStatuses.FAILED));
+        setTimeout(() => {
+          sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
+        }, 3000);
       }
     }
   };
@@ -134,7 +139,7 @@ const CheckoutForm = ({ className, stripe }) => {
     billingAddressLine1: "",
     billingAddressLine2: "",
     billingAddressCity: "",
-    useBillingAddressForDelivery: false,
+    useBillingAddressForDelivery: true,
     deliveryAddressLine1: "",
     deliveryAddressLine2: "",
     deliveryAddressCity: "",
@@ -151,6 +156,10 @@ const CheckoutForm = ({ className, stripe }) => {
       <div className="success-message">
         <h2>Payment successful</h2>
         <p>Thank you for ordering from Prep'd Fresh!</p>
+      </div>
+      <div className="failed-message">
+        <h2>Payment failed</h2>
+        <p>Oops! Something went wrong, please try again later.</p>
       </div>
       <div className="checkout-form">
         <Formik
@@ -196,27 +205,27 @@ const CheckoutForm = ({ className, stripe }) => {
                   />
                   <ErrorMessage name="billingAddressCity" />
                 </fieldset>
-                {billingAddressWasProvided(values) && (
-                  <CopyAddressCheckbox {...{ values, setFieldValue }} />
+                <CopyAddressCheckbox {...{ values, setFieldValue }} />
+                {!values.useBillingAddressForDelivery && (
+                  <fieldset>
+                    <legend>Delivery Address</legend>
+                    <Field
+                      name="deliveryAddressLine1"
+                      placeholder="Delivery address line 1"
+                    />
+                    <ErrorMessage name="deliveryAddressLine1" />
+                    <Field
+                      name="deliveryAddressLine2"
+                      placeholder="Delivery address line 2 (Optional)"
+                    />
+                    <ErrorMessage name="deliveryAddressLine2" />
+                    <Field
+                      name="deliveryAddressCity"
+                      placeholder="Delivery address city"
+                    />
+                    <ErrorMessage name="deliveryAddressCity" />
+                  </fieldset>
                 )}
-                <fieldset>
-                  <legend>Delivery Address</legend>
-                  <Field
-                    name="deliveryAddressLine1"
-                    placeholder="Delivery address line 1"
-                  />
-                  <ErrorMessage name="deliveryAddressLine1" />
-                  <Field
-                    name="deliveryAddressLine2"
-                    placeholder="Delivery address line 2 (Optional)"
-                  />
-                  <ErrorMessage name="deliveryAddressLine2" />
-                  <Field
-                    name="deliveryAddressCity"
-                    placeholder="Delivery address city"
-                  />
-                  <ErrorMessage name="deliveryAddressCity" />
-                </fieldset>
                 <Field name="phoneNumber" placeholder="Phone number" />
                 <ErrorMessage name="phoneNumber" />
                 <Field name="email" placeholder="Email" />
@@ -306,22 +315,26 @@ export default injectStripe(styled(CheckoutForm)`
       opacity: 1;
       transition: opacity 0.2s linear;
     }
-    .processing-message {
+    .processing-message,
+    .success-message,
+    .failed-message {
       visibility: hidden;
       position: absolute;
       opacity: 0;
       transition: visibility 0s 0.2s, opacity 0.2s linear;
     }
-    .success-message {
+    ${"" /* .success-message {
       visibility: hidden;
       position: absolute;
       opacity: 0;
       transition: visibility 0s 0.2s, opacity 0.2s linear;
-    }
+    } */}
   }
 
   &.PROCESSING {
-    .checkout-form {
+    .checkout-form,
+    .success-message,
+    .failed-message {
       visibility: hidden;
       position: absolute;
       opacity: 0;
@@ -333,27 +346,29 @@ export default injectStripe(styled(CheckoutForm)`
       opacity: 1;
       transition: opacity 0.2s linear;
     }
-    .success-message {
+    ${"" /* .success-message {
       visibility: hidden;
       position: absolute;
       opacity: 0;
       transition: visibility 0s 0.2s, opacity 0.2s linear;
-    }
+    } */}
   }
 
   &.SUCCESS {
-    .checkout-form {
+    .checkout-form,
+    .processing-message,
+    .failed-message {
       visibility: hidden;
       position: absolute;
       opacity: 0;
       transition: visibility 0s 0.2s, opacity 0.2s linear;
     }
-    .processing-message {
+    ${"" /* .processing-message {
       visibility: hidden;
       position: absolute;
       opacity: 0;
       transition: visibility 0s 0.2s, opacity 0.2s linear;
-    }
+    } */}
     .success-message {
       visibility: visible;
       position: relative;
@@ -362,6 +377,33 @@ export default injectStripe(styled(CheckoutForm)`
       h2,
       p {
         color: #23b47e;
+      }
+    }
+  }
+
+  &.FAILED {
+    .checkout-form,
+    .processing-message,
+    .success-message {
+      visibility: hidden;
+      position: absolute;
+      opacity: 0;
+      transition: visibility 0s 0.2s, opacity 0.2s linear;
+    }
+    ${"" /* .processing-message {
+      visibility: hidden;
+      position: absolute;
+      opacity: 0;
+      transition: visibility 0s 0.2s, opacity 0.2s linear;
+    } */}
+    .failed-message {
+      visibility: visible;
+      position: relative;
+      opacity: 1;
+      transition: opacity 0.2s linear;
+      h2,
+      p {
+        color: #ff0000;
       }
     }
   }
