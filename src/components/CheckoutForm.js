@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import checkoutValidationSchema from "./checkoutValidationSchema";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { updateCartStatus, CartStatuses, resizeWebView } from "../actions";
+import { updateCartStatus, CartStatuses } from "../actions";
 import styled from "styled-components";
 import { CardElement, injectStripe } from "react-stripe-elements";
 
@@ -20,8 +20,6 @@ const CheckoutForm = ({ className, stripe }) => {
   };
 
   useEffect(() => {
-    sendMessageToRN(resizeWebView(document.body.clientHeight + "px"));
-
     const handleMessageFromRN = data => {
       let parsedData =
         typeof data.data === "string" ? JSON.parse(data.data) : data.data;
@@ -75,6 +73,8 @@ const CheckoutForm = ({ className, stripe }) => {
   const handleSubmit = async (details, stripe) => {
     let stripeCustomerDetails = {
       name: `${details.firstName} ${details.lastName}`,
+      first_name: details.firstName,
+      last_name: details.lastName,
       address_line1: details.billingAddressLine1,
       address_line2: details.billingAddressLine2,
       address_city: details.billingAddressCity
