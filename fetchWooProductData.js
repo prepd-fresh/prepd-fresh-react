@@ -23,7 +23,8 @@ const fromWooToAppProduct = (
   }
 });
 
-const productIsMeal = x => x.type === "variable";
+const productIsMeal = x =>
+  x.categories.filter(category => category.name === "Menu").length;
 
 const handleWooProductGetSuccess = wcResponse => {
   const meals = wcResponse.data.filter(productIsMeal);
