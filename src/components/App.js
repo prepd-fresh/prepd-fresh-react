@@ -10,6 +10,8 @@ ${
   * {
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
+    margin: 0!important;
+    padding: 0!important;
   }
   h1, h2, h3, h4, h5, h6, p {
     color: #3E444B;
@@ -19,7 +21,7 @@ ${
   }
   body, html {
     overflow: ${props => (props.cartIsVisible ? "hidden" : "auto")};
-    background-color: #FAF8F4;
+    background-color: red;
     touch-action: none;
     position: relative;
     height: 100%;
