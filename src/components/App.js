@@ -21,7 +21,7 @@ ${
   }
   body, html {
     overflow: ${props => (props.cartIsVisible ? "hidden" : "auto")};
-    background-color: red;
+    background-color: white;
     touch-action: none;
     position: relative;
     height: 100%;
