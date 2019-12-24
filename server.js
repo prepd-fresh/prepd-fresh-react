@@ -120,6 +120,11 @@ app.get("/products", jsonParser, async (req, res) => {
     .catch(handleWooProductGetError(res));
 });
 
+app.get("/stripe-pk", jsonParser, async (req, res) => {
+  res.json({ "stripe-pk": process.env.STRIPE_PK });
+  // res.json({ "stripe-pk": "process.env.STRIPE_PK" });
+});
+
 app.listen(port);
 
 module.exports = {

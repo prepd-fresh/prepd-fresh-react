@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CheckoutForm from "./CheckoutForm";
 import { StripeProvider, Elements } from "react-stripe-elements";
 import { createGlobalStyle } from "styled-components";
@@ -48,15 +48,32 @@ ${
   } 
 `;
 
-const App = () => (
-  <React.Fragment>
-    <GlobalStyle />
-    <StripeProvider apiKey={process.env.STRIPE_PK}>
-      <Elements>
-        <CheckoutForm />
-      </Elements>
-    </StripeProvider>
-  </React.Fragment>
-);
+const App = () => {
+  const [stripePK, setStripePK] = useState(null);
+
+  useEffect(() => {
+    // if (!stripePK) {
+    fetch("/stripe-pk")
+      .then(response => response.json())
+      .then(json => json["stripe-pk"])
+      .then(publicKey => setStripePK(publicKey));
+    // }
+  }, [stripePK]);
+
+  return (
+    <React.Fragment>
+      <GlobalStyle />
+      {stripePK ? (
+        <StripeProvider apiKey={stripePK}>
+          <Elements>
+            <CheckoutForm />
+          </Elements>
+        </StripeProvider>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </React.Fragment>
+  );
+};
 
 export default App;
