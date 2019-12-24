@@ -51,7 +51,7 @@ ${
 const App = () => (
   <React.Fragment>
     <GlobalStyle />
-    <StripeProvider apiKey="pk_test_Qg0MOqpLtAEOcgtz25EBjyST00ZdobQD7p">
+    <StripeProvider apiKey={process.env.STRIPE_PK}>
       <Elements>
         <CheckoutForm />
       </Elements>
