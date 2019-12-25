@@ -17,6 +17,7 @@ const StripeFormField = ({ stripe }) => {
       typeof data.data === "string" ? JSON.parse(data.data) : data.data;
     // Do something with RN data
     if (parsedData.type === "FORM_SUBMITTED") {
+      sendMessageToRN(updateCartStatus(CartStatuses.PROCESSING));
       let { token } = await getStripeToken(
         parsedData.details.customer.stripeDetails
       );
