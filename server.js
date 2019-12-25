@@ -48,65 +48,54 @@ const jsonParser = bodyParser.json();
 // test endpoint, for use during checkout form migration
 
 app.post("/charge", jsonParser, async (req, res) => {
-  return fetchWooProductData()
-    .then(data => {
-      console.log(JSON.stringify(req.body));
-      const { tokenId, fullCustomerDetails, cartItems, totalPrice } = req.body;
-      if (
-        !areProductsAvailable(
-          Object.values(cartItems).map(item => String(item.productId)),
-          Object.keys(data.products).map(String)
-        )
-      ) {
-        throw "Items in cart are no longer available for order.";
-      } else if (
-        !areProductPricesCorrect(cartItems, data.productSizeVariants)
-      ) {
-        throw "Incorrect cart item prices.";
-      } else if (!isTotalCorrect(cartItems, totalPrice)) {
-        throw "Cart total does not match item prices.";
-      } else if (totalPrice < 0) {
-        throw "Cart total should be no less than $0";
-      } else if (totalPrice == 0) {
-        return {
-          status: "no charge",
-          fullCustomerDetails,
-          cartItems,
-          totalPrice
-        };
-      }
-      return stripe.charges.create(
-        {
-          amount: parseInt(totalPrice * 100),
-          currency: "cad",
-          description: "making a charge",
-          source: tokenId
-        },
-        (err, charge) => {
-          if (err) {
-            res.status(500).end();
-            throw err;
-          }
-          if (charge.status === "succeeded") {
-            res.json({
-              status: charge.status,
-              fullCustomerDetails,
-              cartItems,
-              totalPrice
-            });
-          }
+  return fetchWooProductData().then(data => {
+    console.log(JSON.stringify(req.body));
+    const { tokenId, fullCustomerDetails, cartItems, totalPrice } = req.body;
+    if (
+      !areProductsAvailable(
+        Object.values(cartItems).map(item => String(item.productId)),
+        Object.keys(data.products).map(String)
+      )
+    ) {
+      throw "Items in cart are no longer available for order.";
+    } else if (!areProductPricesCorrect(cartItems, data.productSizeVariants)) {
+      throw "Incorrect cart item prices.";
+    } else if (!isTotalCorrect(cartItems, totalPrice)) {
+      throw "Cart total does not match item prices.";
+    } else if (totalPrice < 0) {
+      throw "Cart total should be no less than $0";
+    } else if (totalPrice == 0) {
+      return {
+        status: "no charge",
+        fullCustomerDetails,
+        cartItems,
+        totalPrice
+      };
+    }
+    return stripe.charges.create(
+      {
+        amount: parseInt(totalPrice * 100),
+        currency: "cad",
+        description: "making a charge",
+        source: tokenId
+      },
+      (err, charge) => {
+        if (err) {
+          res.status(500).end();
+          throw err;
+        } else if (charge.status === "succeeded") {
+          return res.json({
+            status: charge.status,
+            fullCustomerDetails,
+            cartItems,
+            totalPrice
+          });
+        } else {
           res.status(500).end;
         }
-      );
-    })
-    .then(orderDetails => {
-      if (orderDetails.status === "failed") throw "payment failed";
-      res.json(orderDetails);
-      // postWooOrderData(orderDetails).then(() => res.json(orderDetails));
-    })
-    .catch(err => {
-      res.status(500).end();
-    });
+      }
+    );
+  });
 });
 
 const sendProductDataToApp = res => ({ products, productSizeVariants }) =>
