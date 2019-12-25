@@ -75,27 +75,29 @@ app.post("/charge", jsonParser, async (req, res) => {
           totalPrice
         };
       }
-      return stripe.charges
-        .create(
-          {
-            amount: parseInt(totalPrice * 100),
-            currency: "cad",
-            description: "making a charge",
-            source: tokenId
-          },
-          (err, charge) => {
-            if (err) throw err;
-            return charge;
+      return stripe.charges.create(
+        {
+          amount: parseInt(totalPrice * 100),
+          currency: "cad",
+          description: "making a charge",
+          source: tokenId
+        },
+        (err, charge) => {
+          if (err) {
+            res.status(500).end();
+            throw err;
           }
-        )
-        .then(charge => {
-          return {
-            status: charge,
-            fullCustomerDetails,
-            cartItems,
-            totalPrice
-          };
-        });
+          if (charge.status === "succeeded") {
+            res.json({
+              status: charge.status,
+              fullCustomerDetails,
+              cartItems,
+              totalPrice
+            });
+          }
+          res.status(500).end;
+        }
+      );
     })
     .then(orderDetails => {
       if (orderDetails.status === "failed") throw "payment failed";
@@ -122,7 +124,6 @@ app.get("/products", jsonParser, async (req, res) => {
 
 app.get("/stripe-pk", jsonParser, async (req, res) => {
   res.json({ "stripe-pk": process.env.STRIPE_PK });
-  // res.json({ "stripe-pk": "process.env.STRIPE_PK" });
 });
 
 app.listen(port);
