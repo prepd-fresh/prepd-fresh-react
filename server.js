@@ -84,12 +84,13 @@ app.post("/charge", jsonParser, async (req, res) => {
           res.status(500).end();
           throw err;
         } else if (charge.status === "succeeded") {
-          return res.json({
+          const orderDetails = {
             status: charge.status,
             fullCustomerDetails,
             cartItems,
             totalPrice
-          });
+          };
+          postWooOrderData(orderDetails).then(() => res.json(orderDetails));
         } else {
           res.status(500).end;
         }
