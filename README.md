@@ -1,70 +1,29 @@
 # prepd-fresh-react
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Server with an API for Prep'd Fresh Stripe and WooCommerce connections, as well as order validation. Leverages create-react-app to serve the Stripe credit card field securely to the Prep'd Fresh mobile app via WebView and also indirectly dispatches the app's payment status update actions.
+
+This will live on Heroku for now and is not a part of the Expo app build. Heroku automatically runs `npm run build` on their end for hosted apps, so the Procfile only has to specify for Heroku to run `node server.js`.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app to the `build` folder.<br>
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### `node server.js`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+From the root directory, this starts the server. In order for the server to successfully serve the Stripe card field to the app's WebView, you have to have run `npm run build` at least once, so that there is a built directory to serve from.
 
-### `npm run eject`
+### Troubleshooting
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+If you are making updates to `server.js`, you must restart the server to see your changes in action.
+If you are making changes to the `src` directory files, you will need to run `npm run build` and refresh your WebView to see updates.
+To see changes live in production, you will need to push your commits to your Heroku app with `git push heroku master` (this will automatically push your Master branch to your Heroku app's master branch)
 
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
