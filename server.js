@@ -83,7 +83,7 @@ app.post("/charge", jsonParser, async (req, res) => {
       (err, charge) => {
         if (err) {
           res.status(500).end();
-          console.Error(err);
+          console.log(err);
         } else if (charge.status === "succeeded") {
           const orderDetails = {
             status: charge.status,
