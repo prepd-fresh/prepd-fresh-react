@@ -37,7 +37,8 @@ const areProductPricesCorrect = (orderProducts, wooProductVariants) =>
 const isTotalCorrect = (orderProducts, totalPrice) =>
   parseFloat(
     Object.values(orderProducts).reduce(
-      (actualTotal, product) => actualTotal + product.itemPrice * product.qty,
+      (actualTotal, product) =>
+        (actualTotal * 100 + product.itemPrice * 100 * product.qty) / 100,
       0
     )
   ) === parseFloat(totalPrice);
