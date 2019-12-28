@@ -21,6 +21,12 @@ const StripeFormField = ({ stripe }) => {
       let { token } = await getStripeToken(
         parsedData.details.customer.stripeDetails
       );
+      if (!token.id || typeof token.id !== "string") {
+        sendMessageToRN(updateCartStatus(CartStatuses.FAILED));
+        setTimeout(() => {
+          sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
+        }, 3000);
+      }
       const { cartItems, totalPrice } = parsedData.details.cartDetails;
       const { stripeDetails, ...customerDetails } = parsedData.details.customer;
       let response = await fetch("/charge", {
