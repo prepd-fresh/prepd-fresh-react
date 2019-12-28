@@ -18,56 +18,54 @@ const StripeFormField = ({ stripe }) => {
     // Do something with RN data
     if (parsedData.type === "FORM_SUBMITTED") {
       sendMessageToRN(updateCartStatus(CartStatuses.PROCESSING));
-      try {
-        let { token } = await getStripeToken(
-          parsedData.details.customer.stripeDetails
-        );
-      } catch (e) {
-        sendMessageToRN(updateCartStatus(CartStatuses.FAILED));
-        setTimeout(() => {
-          sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
-        }, 3000);
-      } finally {
-        if (!token.id || typeof token.id !== "string") {
-          sendMessageToRN(updateCartStatus(CartStatuses.FAILED));
-          setTimeout(() => {
-            sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
-          }, 3000);
-        }
-        const { cartItems, totalPrice } = parsedData.details.cartDetails;
-        const {
-          stripeDetails,
-          ...customerDetails
-        } = parsedData.details.customer;
-        let response = await fetch("/charge", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            tokenId: token.id,
-            fullCustomerDetails: {
-              ...stripeDetails,
-              ...customerDetails
+      getStripeToken(parsedData.details.customer.stripeDetails)
+        .then(async token => {
+          if (!token.id || typeof token.id !== "string") {
+            sendMessageToRN(updateCartStatus(CartStatuses.FAILED));
+            setTimeout(() => {
+              sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
+            }, 3000);
+          }
+          const { cartItems, totalPrice } = parsedData.details.cartDetails;
+          const {
+            stripeDetails,
+            ...customerDetails
+          } = parsedData.details.customer;
+          let response = await fetch("/charge", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
             },
-            cartItems,
-            totalPrice
-          })
-        });
-        if (response.ok) {
-          console.log(response.json());
-          sendMessageToRN(updateCartStatus(CartStatuses.SUCCESS));
-          setTimeout(() => {
-            sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
-          }, 3000);
-        } else {
+            body: JSON.stringify({
+              tokenId: token.id,
+              fullCustomerDetails: {
+                ...stripeDetails,
+                ...customerDetails
+              },
+              cartItems,
+              totalPrice
+            })
+          });
+          if (response.ok) {
+            console.log(response.json());
+            sendMessageToRN(updateCartStatus(CartStatuses.SUCCESS));
+            setTimeout(() => {
+              sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
+            }, 3000);
+          } else {
+            sendMessageToRN(updateCartStatus(CartStatuses.FAILED));
+            setTimeout(() => {
+              sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
+            }, 3000);
+          }
+        })
+        .catch(e => {
           sendMessageToRN(updateCartStatus(CartStatuses.FAILED));
           setTimeout(() => {
             sendMessageToRN(updateCartStatus(CartStatuses.DEFAULT));
           }, 3000);
-        }
-      }
+        });
     }
   };
 
