@@ -93,7 +93,7 @@ app.post("/charge", jsonParser, async (req, res) => {
           };
           postWooOrderData(orderDetails).then(() => res.json(orderDetails));
         } else {
-          res.status(500).end;
+          res.status(500).end();
         }
       }
     );
