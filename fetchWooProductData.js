@@ -35,6 +35,7 @@ const handleWooProductGetSuccess = wcResponse => {
         type: "meal",
         id: String(curr.id),
         productName: curr.name,
+        stock_status: curr.stock_status,
         dek: curr.description.replace(/<\/?p>/gi, ""),
         veggie: curr.id === "4156",
         imageUrl: curr.images[0].src
