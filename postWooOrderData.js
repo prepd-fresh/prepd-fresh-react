@@ -18,7 +18,13 @@ const defaultData = {
       method_title: "Free shipping",
       total: "0"
     }
-  ]
+  ],
+  'meta_data': [
+    {
+        "key": "purchasingMethod",
+        "value": "Made via. App"
+    }
+  ],
 };
 
 const postWooOrderData = ({
